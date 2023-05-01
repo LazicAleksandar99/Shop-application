@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { LoginUser } from 'src/app/shared/models/user';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -9,22 +12,21 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup | undefined;
-  user: UserForLogin;
+  loginForm!: FormGroup;
+  user!: LoginUser;
   auth2: any;
   @ViewChild('loginRef', {static: true }) loginElement!: ElementRef;
 
   constructor(private router: Router,
               private fb: FormBuilder,
-              private authService: AuthService,
-              private storageService: StorageService,
+              private authService: AuthenticationService,
+              //private storageService: StorageService,
               private toastr: ToastrService) {
-
-      this.createLoginForm();
   }
 
   ngOnInit() {
     this.googleAuthSDK();
+    this.createLoginForm();
   }
 
   createLoginForm(){
@@ -36,10 +38,10 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.authService.authUser(this.loginForm.value).subscribe(
+      this.authService.login(this.loginForm.value).subscribe(
         (res: any) => {
 
-          this.storageService.setStorage(res.token,res.id);
+          //this.storageService.setStorage(res.token,res.id);
           this.toastr.success('You are now loged in. Welcome!', 'Succes!', {
             timeOut: 3000,
             closeButton: true,
@@ -64,11 +66,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  userData(): UserForLogin {
+  userData(): LoginUser {
     return this.user = {
         email: this.email.value,
-        password: this.password.value,
-        token: ""
+        password: this.password.value
     };
   }
 
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', googleAuthUser.getAuthResponse().id_token);
         localStorage.setItem('id', profile.getId());
 
-        this.storageService.setStorage(googleAuthUser.getAuthResponse().id_token,profile.getId());
+        //this.storageService.setStorage(googleAuthUser.getAuthResponse().id_token,profile.getId());
 
        /* Write Your Code Here */
        this.router.navigateByUrl('/home/dashboard');

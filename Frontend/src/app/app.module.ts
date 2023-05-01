@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegistrationComponent } from './pages/authentication/registration/registration.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,11 @@ import { RegistrationComponent } from './pages/authentication/registration/regis
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
