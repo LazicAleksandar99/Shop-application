@@ -9,10 +9,11 @@ namespace Shopping.Api.Models
     {
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         [Required]
         [StringLength(100)]
-        public string UserName { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
         [Required]
         [StringLength(255)]
         public string Email { get; set; } = string.Empty;
@@ -28,14 +29,16 @@ namespace Shopping.Api.Models
         [StringLength(255)]
         public string Address { get; set; } = string.Empty;
         [Required]
-        public UserRole Role { get; set; }
+        public string Role { get; set; } = string.Empty;
         [Required]
-        public VerificationStatus Verification { get; set; }
+        public string VerificationStatus { get; set; } = string.Empty;
         [Required]
-        public byte[] Password { get; set; } 
+        public byte[]? Password { get; set; } 
         [Required]
-        public byte[] PasswordKey { get; set; }
+        public byte[]? PasswordKey { get; set; }
         public string Picture { get; set; } = string.Empty;
+
+        public ICollection<Order> Orders = new List<Order>();
         
     }
 }
