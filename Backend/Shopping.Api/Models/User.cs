@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shopping.Api.Models
 {
-    public enum UserRole { Administrator = 0, Seller = 1, Customer = 2 };
-    public enum VerificationStatus { Pending = 0, Denied = 1, Verified = 2};
+    //public enum UserRole { Administrator = 0, Seller = 1, Customer = 2 };
+    //public enum VerificationStatus { Pending = 0, Denied = 1, Verified = 2};
     public class User
     {
         [Required]

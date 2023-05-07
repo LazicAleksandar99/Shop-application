@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "/5fuyGfADmVx9ORWaIuwP4aBRkvI4JeqkJRPByxjdIMSdeAbeuo8KdAP5I8tk3rNKIYRAX31BnmZWub50J4UAQ==",
+  "dgSpecHash": "Ebvfhek7zywRS4HQJa3btUPmDOpjG/QLFqau5P+osgiE5puuk+8CWyfhiSnl1qmrJFRewldExJ1tPqSBsO1Ghw==",
   "success": true,
   "projectFilePath": "C:\\Users\\acopr\\OneDrive\\Desktop\\New folder\\GIT\\Shop-application\\Backend\\Shopping.Api\\Shopping.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\acopr\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\acopr\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\acopr\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\acopr\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.16\\microsoft.aspnetcore.authentication.jwtbearer.6.0.16.nupkg.sha512",
     "C:\\Users\\acopr\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\acopr\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\acopr\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
