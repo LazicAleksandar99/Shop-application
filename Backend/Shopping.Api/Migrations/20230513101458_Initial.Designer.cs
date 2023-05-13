@@ -12,8 +12,8 @@ using Shopping.Api.Data;
 namespace Shopping.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230507100706_Database initialization")]
-    partial class Databaseinitialization
+    [Migration("20230513101458_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,12 @@ namespace Shopping.Api.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Articles");
                 });
@@ -79,7 +84,8 @@ namespace Shopping.Api.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.ToTable("Items");
                 });
@@ -192,18 +198,29 @@ namespace Shopping.Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Shopping.Api.Models.Article", b =>
+                {
+                    b.HasOne("Shopping.Api.Models.User", "User")
+                        .WithMany("Articles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Shopping.Api.Models.Item", b =>
                 {
                     b.HasOne("Shopping.Api.Models.Article", "Article")
-                        .WithMany("Articles")
+                        .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shopping.Api.Models.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("Item")
+                        .HasForeignKey("Shopping.Api.Models.Item", "OrderId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Article");
@@ -230,18 +247,16 @@ namespace Shopping.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shopping.Api.Models.Article", b =>
-                {
-                    b.Navigation("Articles");
-                });
-
             modelBuilder.Entity("Shopping.Api.Models.Order", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Item")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shopping.Api.Models.User", b =>
                 {
+                    b.Navigation("Articles");
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

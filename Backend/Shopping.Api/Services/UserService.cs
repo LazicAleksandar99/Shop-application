@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Shopping.Api.DTO;
+using Shopping.Api.DTO.UserDTO;
 using Shopping.Api.Interfaces.IRepositories;
 using Shopping.Api.Interfaces.IServices;
 using Shopping.Api.Models;
@@ -16,10 +17,12 @@ namespace Shopping.Api.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepo;
-        public UserService(IConfiguration configuration, IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public UserService(IConfiguration configuration, IUserRepository userRepository, IMapper mapper)
         {
-            this._configuration = configuration;
-            this._userRepo = userRepository;  
+            _configuration = configuration;
+            _userRepo = userRepository;
+            _mapper = mapper;
         }
 
         public async Task<string> Authenticate(LoginUserDto loginUser)
@@ -43,17 +46,16 @@ namespace Shopping.Api.Services
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(newUser.Password));
 
             }
-            //provjera za Username i Email
-            User user = new User();
-            user.Username = newUser.Username;
+
+            if (!await _userRepo.DoesEmailExist(newUser.Email))
+                return "emailexists";
+
+            if (!await _userRepo.DoesUsernameExist(newUser.Username))
+                return "usernameexists";
+
+            var user = _mapper.Map<User>(newUser);
             user.Password = passwordHash;
             user.PasswordKey = passwordKey;
-            user.Address = newUser.Address;
-            user.Birthday = newUser.Birthday;
-            user.Email = newUser.Email;
-            user.FirstName = newUser.FirstName;
-            user.LastName = newUser.LastName;
-            user.Role = newUser.Role;
             user.VerificationStatus = newUser.Role == "Customer" ? "Verified" : "Pending";
 
             var response = await _userRepo.Register(user);
@@ -64,9 +66,45 @@ namespace Shopping.Api.Services
             return "successful";
         }
 
+        public async Task<string> Update(UpdateUserDto updatedUser)
+        {
+            if (!await _userRepo.DoesEmailExist(updatedUser.Email))
+                return "emailexists";
 
+            if (!await _userRepo.DoesUsernameExist(updatedUser.Username))
+                return "usernameexists";
 
+            if (!await _userRepo.DoesUserExist(updatedUser.Id))
+                return "nouserfound";
 
+            if (String.IsNullOrWhiteSpace(updatedUser.Newpassword) && String.IsNullOrWhiteSpace(updatedUser.Oldpassword))
+            {
+                await _userRepo.Update(updatedUser);
+            }
+            else if (!String.IsNullOrWhiteSpace(updatedUser.Newpassword) && !String.IsNullOrWhiteSpace(updatedUser.Oldpassword))
+            {
+                await _userRepo.Update(updatedUser);
+            }
+            else
+                return "passwordError";
+
+            return "updated";
+        }
+
+        public async Task<bool> Verify(int id, string verificationStatus)
+        {
+            if (!await _userRepo.DoesSellerExist(id))
+                return false;
+
+            await Verify(id, verificationStatus);
+            return true;
+        }
+
+        //U DTO DRUZE
+        public async Task<List<User>> GetSellers()
+        {
+            return await _userRepo.GetSellers();
+        }
 
         private string CreateJWT(User user)
         {

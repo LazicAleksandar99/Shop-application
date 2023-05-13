@@ -86,3 +86,5 @@ C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping
 C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\obj\Debug\net6.0\Shopping.Api.genruntimeconfig.cache
 C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\obj\Debug\net6.0\ref\Shopping.Api.dll
 C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

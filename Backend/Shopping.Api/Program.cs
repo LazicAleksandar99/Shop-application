@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shopping.Api.Data;
 using Shopping.Api.Data.Repositories;
+using Shopping.Api.Helpers;
 using Shopping.Api.Interfaces.IRepositories;
 using Shopping.Api.Interfaces.IServices;
 using Shopping.Api.Services;
@@ -34,8 +35,15 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+//repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+//services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 

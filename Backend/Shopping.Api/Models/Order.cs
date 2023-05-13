@@ -17,14 +17,19 @@ namespace Shopping.Api.Models
         [Required]
         public DateTime DeliveryTime { get; set; }
         [Required]
-        public string Status { get; set; } = string.Empty; //Delivering,Delivered,Cancelled
+        public string Status { get; set; } //Delivering,Delivered,Cancelled
         [Required]
         [StringLength(255)]
-        public string Comment { get; set; } = string.Empty;
+        public string Comment { get; set; }
+        [Required]
+        public string Address { get; set; }
+        [Required]
         public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        public User User { get; set; }
+        [Required]
         public int SellerId { get; set; }
-        public User Seller { get; set; } = null!;
-        public ICollection<Item> Items { get; set; } = new List<Item>();
+        public User Seller { get; set; } 
+        //public ICollection<Item> Items { get; set; }
+        public Item Item { get; set; }
     }
 }

@@ -13,32 +13,32 @@ namespace Shopping.Api.Models
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
-        public string Username { get; set; } = string.Empty;
+        public string Username { get; set; } 
         [Required]
         [StringLength(255)]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; } 
         [Required]
         [StringLength(100)]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; }
         [Required]
         [StringLength(100)]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; }
         [Required]
         public DateTime Birthday { get; set; } 
         [Required]
         [StringLength(255)]
-        public string Address { get; set; } = string.Empty;
+        public string Address { get; set; }
         [Required]
-        public string Role { get; set; } = string.Empty;
+        public string Role { get; set; }
         [Required]
-        public string VerificationStatus { get; set; } = string.Empty;
+        public string VerificationStatus { get; set; }
         [Required]
-        public byte[]? Password { get; set; } 
+        public byte[] Password { get; set; } 
         [Required]
-        public byte[]? PasswordKey { get; set; }
-        public string Picture { get; set; } = string.Empty;
-
-        public ICollection<Order> Orders = new List<Order>();
+        public byte[] PasswordKey { get; set; }
+        public string Picture { get; set; }
+        public ICollection<Order> Orders { get; set; }
+        public ICollection<Article> Articles { get; set; }
         
     }
 }

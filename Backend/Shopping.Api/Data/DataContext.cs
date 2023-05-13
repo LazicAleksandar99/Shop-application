@@ -19,17 +19,20 @@ namespace Shopping.Api.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
             modelBuilder.Entity<User>()
-            .HasIndex(x => x.Email)
-            .IsUnique();
+                .HasIndex(x => x.Email)
+                .IsUnique();
             modelBuilder.Entity<User>()
-            .HasIndex(x => x.Username)
-            .IsUnique();
-
+                .HasIndex(x => x.Username)
+                .IsUnique();
             modelBuilder.Entity<Order>()
-            .HasOne(o => o.User)
-            .WithMany(u => u.Orders)
-            .HasForeignKey(o => o.UserId)
-            .OnDelete(DeleteBehavior.NoAction);
+                .HasOne(o => o.User)
+                .WithMany(u => u.Orders)
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Item>()
+                .HasOne(i => i.Order)
+                .WithOne(u => u.Item)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
