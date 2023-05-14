@@ -77,7 +77,7 @@ namespace Shopping.Api.Data.Repositories
         }
         public async Task<User> Verify(int userId, string verificationStatus)
         {
-            var user = await _data.Users.FindAsync(userId);
+            var user = await _data.Users.SingleOrDefaultAsync(x => x.Id == userId);
             user.VerificationStatus = verificationStatus;
             await _data.SaveChangesAsync();
             return user;

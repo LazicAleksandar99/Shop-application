@@ -5,6 +5,10 @@ namespace Shopping.Api.DTO.ArticleDTO
     public class UpdateArticleDto
     {
         [Required]
+        [Range(1, int.MaxValue)]
+        public int id { get; set; }
+
+        [Required]
         [StringLength(100)]
         public string Name { get; set; }
         [Required]
@@ -19,6 +23,6 @@ namespace Shopping.Api.DTO.ArticleDTO
         [Required]
         public string Picture { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public int UserId { get; set; } 
     }
 }

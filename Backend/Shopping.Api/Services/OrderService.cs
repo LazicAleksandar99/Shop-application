@@ -12,12 +12,14 @@ namespace Shopping.Api.Services
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IArticleRepository _articleRepository;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, IUserRepository userRepository, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, IUserRepository userRepository,IArticleRepository articleRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
+            _articleRepository = articleRepository;
             _mapper = mapper;
         }
 
@@ -34,10 +36,14 @@ namespace Shopping.Api.Services
         {
             if (!await _userRepository.DoesUserExist(newOrder.UserId))
                 return null;
-            if (!await _userRepository.DoesUserExist(newOrder.Seller))
+            if (!await _userRepository.DoesUserExist(newOrder.SellerId))
+                return null;
+            if (!await _articleRepository.DoesArticleExist(newOrder.Item.ArticleId))
                 return null;
             var order = _mapper.Map<Order>(newOrder);
             var result = await _orderRepository.Create(order);
+            if (result == null)
+                return null;
             var returnValue = _mapper.Map<GetCreatedOrderDto>(result);
             return returnValue;
         }

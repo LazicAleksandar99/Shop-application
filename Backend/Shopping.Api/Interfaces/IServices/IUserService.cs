@@ -9,6 +9,6 @@ namespace Shopping.Api.Interfaces.IServices
         public Task<string> Register(RegisterUserDto newUser);
         public Task<string> Update(UpdateUserDto updatedUser);
         public Task<bool> Verify(int id, string action);
-        public Task<List<User>> GetSellers();
+        public Task<List<GetSellersDto>> GetSellers();
     }
 }

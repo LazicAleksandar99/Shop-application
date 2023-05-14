@@ -27,7 +27,7 @@ namespace Shopping.Api.Controllers
                 return BadRequest();
             }
             if (!await _articleService.Create(newArticle))
-                return BadRequest("Updated article not valid");
+                return BadRequest("User not valid");
             return Ok();
         }
 
@@ -51,7 +51,7 @@ namespace Shopping.Api.Controllers
         public async Task<IActionResult> Delete(int id, int sellerId)
         {
             if (!await _articleService.Delete(id, sellerId))
-                return BadRequest("Updated article not valid");
+                return BadRequest("Invalid id-s");
             return Ok();
         }
 

@@ -47,10 +47,10 @@ namespace Shopping.Api.Services
 
             }
 
-            if (!await _userRepo.DoesEmailExist(newUser.Email))
+            if (await _userRepo.DoesEmailExist(newUser.Email))
                 return "emailexists";
 
-            if (!await _userRepo.DoesUsernameExist(newUser.Username))
+            if (await _userRepo.DoesUsernameExist(newUser.Username))
                 return "usernameexists";
 
             var user = _mapper.Map<User>(newUser);
@@ -68,10 +68,10 @@ namespace Shopping.Api.Services
 
         public async Task<string> Update(UpdateUserDto updatedUser)
         {
-            if (!await _userRepo.DoesEmailExist(updatedUser.Email))
+            if (await _userRepo.DoesEmailExist(updatedUser.Email))
                 return "emailexists";
 
-            if (!await _userRepo.DoesUsernameExist(updatedUser.Username))
+            if (await _userRepo.DoesUsernameExist(updatedUser.Username))
                 return "usernameexists";
 
             if (!await _userRepo.DoesUserExist(updatedUser.Id))
@@ -96,14 +96,16 @@ namespace Shopping.Api.Services
             if (!await _userRepo.DoesSellerExist(id))
                 return false;
 
-            await Verify(id, verificationStatus);
+            await _userRepo.Verify(id, verificationStatus);
             return true;
         }
 
         //U DTO DRUZE
-        public async Task<List<User>> GetSellers()
+        public async Task<List<GetSellersDto>> GetSellers()
         {
-            return await _userRepo.GetSellers();
+            var results = await _userRepo.GetSellers();
+            var returnValue = _mapper.Map<List<GetSellersDto>>(results);
+            return returnValue;
         }
 
         private string CreateJWT(User user)

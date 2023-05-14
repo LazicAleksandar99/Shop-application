@@ -25,7 +25,18 @@ namespace Shopping.Api.Data.Repositories
 
         public async Task<Order> Create(Order newOrder)
         {
+            var article = await _data.Articles.SingleOrDefaultAsync(x => x.Id == newOrder.Item.ArticleId);
+            if (article.Quantity < newOrder.Item.Quantity)
+                return null;
+            Random random = new Random();
+            int randomMinutes = random.Next(1, 59);
+            newOrder.CreationTime = DateTime.Now;
+            newOrder.DeliveryTime = DateTime.Now.AddHours(1).AddMinutes(randomMinutes);
+            newOrder.Status = "Delivering";
+            newOrder.Price = article.Price * newOrder.Item.Quantity;
             var result = await _data.Orders.AddAsync(newOrder);
+            article.Quantity -= newOrder.Item.Quantity;
+            await _data.SaveChangesAsync();
             return result.Entity;
         }
 

@@ -107,8 +107,8 @@ namespace Shopping.Api.Controllers
         }
 
         //Administrator
-        [HttpGet("delivers")]
-        public async Task<IActionResult> GetDelivers()
+        [HttpGet("sellers")]
+        public async Task<IActionResult> GetSellers()
         {
             return Ok(await _userService.GetSellers());
         }

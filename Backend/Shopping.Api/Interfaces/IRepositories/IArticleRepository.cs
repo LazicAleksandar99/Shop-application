@@ -7,6 +7,6 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<bool> Create(Article newArticle);
         public Task<bool> Update(Article newArticle);
         public Task<bool> Delete(int id, int sellerId);
-
+        public Task<bool> DoesArticleExist(int id);
     }
 }
