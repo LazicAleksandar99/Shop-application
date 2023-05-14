@@ -24,6 +24,10 @@ namespace Shopping.Api.Helpers
 
             //get all sellers
             CreateMap<User, GetSellersDto>();
+
+            //get user details
+            CreateMap<User, GetUserDto>();
+
             //ARTICLE
             //create article
             CreateMap<CreateArticleDto, Article>();

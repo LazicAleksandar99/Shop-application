@@ -109,7 +109,7 @@
   <div class="form-outline mb-2">
     <label class="form-label" for="typePicture-3">Choose profile picture</label>
     <div class="input-group">
-      <input type="file" #imageInput class="form-control file-upload" id="typePicture-3" accept="image/*" aria-describedby="inputGroupFileAddon">
+      <input type="file" #imageInput class="form-control file-upload" id="typePicture-3" accept="image/*" (change)="onFileChanged(imageInput)" aria-describedby="inputGroupFileAddon">
     </div>
   </div>
 

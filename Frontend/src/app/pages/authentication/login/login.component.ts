@@ -38,31 +38,25 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
+      console.log(this.loginForm.value)
       this.authService.login(this.loginForm.value).subscribe(
         (res: any) => {
-
-          //this.storageService.setStorage(res.token,res.id);
+          console.log(res)
+          localStorage.setItem("token", res);
           this.toastr.success('You are now loged in. Welcome!', 'Succes!', {
             timeOut: 3000,
             closeButton: true,
           });
-          this.router.navigateByUrl('/home/dashboard');
+          this.router.navigateByUrl('/dashboard');
         },
         err => {
-          if (err.status == 400){
-            this.toastr.error(err.error.errorMessage, 'Error!' , {
+          console.log(err);
+            this.toastr.error("Wrong email or password", 'Error!' , {
               timeOut: 3000,
               closeButton: true,
             });
-          }
-          else{
-            this.toastr.error(err.error.errorMessage, 'Error!' , {
-              timeOut: 3000,
-              closeButton: true,
-            });
-          }
         }
-    );
+      );
     }
   }
 

@@ -88,3 +88,4 @@ C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping
 C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\acopr\OneDrive\Desktop\New folder\GIT\Shop-application\Backend\Shopping.Api\bin\Debug\net6.0\libman.json

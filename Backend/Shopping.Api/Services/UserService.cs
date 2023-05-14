@@ -99,12 +99,17 @@ namespace Shopping.Api.Services
             await _userRepo.Verify(id, verificationStatus);
             return true;
         }
-
-        //U DTO DRUZE
         public async Task<List<GetSellersDto>> GetSellers()
         {
             var results = await _userRepo.GetSellers();
             var returnValue = _mapper.Map<List<GetSellersDto>>(results);
+            return returnValue;
+        }
+
+        public async Task<GetUserDto> GetUserDetails(int id)
+        {
+            var result = await _userRepo.GetUserDetails(id);
+            var returnValue = _mapper.Map<GetUserDto>(result);
             return returnValue;
         }
 

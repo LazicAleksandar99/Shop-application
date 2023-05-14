@@ -122,7 +122,7 @@ export class RegistrationComponent implements OnInit {
             }
             this.router.navigate(['/user/login']);
           }, error =>{
-            this.toastr.error(error.error.errorMessage, 'Error!' , {
+            this.toastr.error("Invalid input", 'Error!' , {
               timeOut: 3000,
               closeButton: true,
             });

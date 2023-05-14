@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoginUser, RegistrationUser } from '../models/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,10 +12,19 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(user: LoginUser){
-    return this.http.post(this.baseUrl + 'users/login', user);
+    return this.http.post(this.baseUrl + '/v1/user/authentication', user, this.getHttpHeader());
   }
 
   register(user: RegistrationUser){
-    return this.http.post(this.baseUrl + 'users/registration', user);
+    return this.http.post(this.baseUrl + '/v1/user/registration', user);
+  }
+
+  getHttpHeader(): { headers: HttpHeaders; }{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json"
+      })
+    };
+    return httpOptions;
   }
 }

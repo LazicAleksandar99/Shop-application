@@ -11,6 +11,7 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<User> Update(UpdateUserDto updatedUser);
         public Task<User> Verify(int userId, string verificationStatus);
         public Task<List<User>> GetSellers();
+        public Task<User> GetUserDetails(int id);
         public Task<bool> DoesEmailExist(string email);
         public Task<bool> DoesUsernameExist(string username);
         public Task<bool> DoesUserExist(int id);

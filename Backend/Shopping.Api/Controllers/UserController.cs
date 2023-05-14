@@ -19,6 +19,7 @@ namespace Shopping.Api.Controllers
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost("authentication")]
+        [AllowAnonymous]
         //All
         public async Task<IActionResult> Authentication(LoginUserDto loginUser)
         {
@@ -37,6 +38,7 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymous]
         //Customer, Seller
         public async Task<IActionResult> Register(RegisterUserDto newUser)
         {
@@ -55,6 +57,17 @@ namespace Shopping.Api.Controllers
                 return BadRequest("Email already registered");
             if (result == "usernameexists")
                 return BadRequest("Username already registered");
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            if(id < 1)
+                return BadRequest("Invalid id");
+            var result = await _userService.GetUserDetails(id);
+            if (result == null)
+                return BadRequest("No user found");
             return Ok();
         }
 

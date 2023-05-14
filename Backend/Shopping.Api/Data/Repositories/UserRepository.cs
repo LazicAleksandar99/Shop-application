@@ -87,6 +87,12 @@ namespace Shopping.Api.Data.Repositories
             var sellers = await _data.Users.Where(u => u.Role == "Seller").ToListAsync();
             return sellers;
         }
+
+        public async Task<User> GetUserDetails(int id)
+        {
+            var user = await _data.Users.SingleOrDefaultAsync(x => x.Id == id);
+            return user;
+        }
         public async Task<bool> DoesEmailExist(string email) 
         {
             return await _data.Users.AnyAsync(u => u.Email == email);
