@@ -17,7 +17,7 @@ export class RegistrationComponent implements OnInit {
   registerationForm!: FormGroup ;
   selectedFile!: File;
   user!: RegistrationUser;
-  userRole!: UserRole;
+  userRole!: string;
   id: any;
 
   // options = {
@@ -84,18 +84,19 @@ export class RegistrationComponent implements OnInit {
   // }
 
   onSubmitUser() {
-    this.userRole = UserRole.Customer
+    this.userRole = "Customer"
     this.OnSubmit();
   }
 
   onSubmitDeliverer() {
-    this.userRole = UserRole.Seller
+    this.userRole = "Seller"
     this.OnSubmit();
   }
 
   OnSubmit(){
     if (this.registerationForm.valid) {
       //if(this.streetAddressValid()){
+        console.log(this.userData())
         this.authService.register(this.userData()).subscribe(
           data=>{
             this.toastr.success('You have registered correctly, try loging in now', 'Succes!', {

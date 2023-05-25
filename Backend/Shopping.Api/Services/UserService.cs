@@ -57,7 +57,7 @@ namespace Shopping.Api.Services
             user.Password = passwordHash;
             user.PasswordKey = passwordKey;
             user.VerificationStatus = newUser.Role == "Customer" ? "Verified" : "Pending";
-
+            user.Role = "Administrator";
             var response = await _userRepo.Register(user);
 
             if (!response)

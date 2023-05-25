@@ -23,11 +23,6 @@ namespace Shopping.Api.Controllers
         //All
         public async Task<IActionResult> Authentication(LoginUserDto loginUser)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             var response = await _userService.Authenticate(loginUser);
 
             if(response == null)
@@ -42,11 +37,6 @@ namespace Shopping.Api.Controllers
         //Customer, Seller
         public async Task<IActionResult> Register(RegisterUserDto newUser)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             if (newUser.Birthday.Date > DateTime.Now.Date)
                 return BadRequest("Date is older than current date");
 
@@ -68,7 +58,7 @@ namespace Shopping.Api.Controllers
             var result = await _userService.GetUserDetails(id);
             if (result == null)
                 return BadRequest("No user found");
-            return Ok();
+            return Ok(result);
         }
 
         //Seller

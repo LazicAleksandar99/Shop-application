@@ -16,6 +16,7 @@ import { HasRoleDirective } from './directives/has-role.directive';
 import { SellerListComponent } from './components/seller-list/seller-list.component';
 import { AllOrdersComponent } from './components/all-orders/all-orders.component';
 import { ShowUserProfileComponent } from './components/show-user-profile/show-user-profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ShowUserProfileComponent } from './components/show-user-profile/show-us
     AllOrdersComponent,
     ShowUserProfileComponent,
     HasRoleDirective,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

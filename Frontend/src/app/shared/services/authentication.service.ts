@@ -16,7 +16,7 @@ export class AuthenticationService {
   }
 
   register(user: RegistrationUser){
-    return this.http.post(this.baseUrl + '/v1/user/registration', user);
+    return this.http.post(this.baseUrl + '/v1/user/register', user);
   }
 
   getHttpHeader(): { headers: HttpHeaders; }{

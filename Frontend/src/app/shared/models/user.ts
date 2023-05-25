@@ -1,20 +1,18 @@
-import { UserRole } from "../enums/user-role.enum";
-
 export interface LoginUser {
-    email: string;
-    password: string;
+    email: string,
+    password: string,
 }
 
 export interface RegistrationUser{
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    birthday: Date;
-    address: string;
-    picture: string;
-    password: string;
-    role: UserRole
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    birthday: Date,
+    address: string,
+    picture: string,
+    password: string,
+    role: string,
 }
 
 export interface UserAuthorization{
@@ -25,12 +23,12 @@ export interface UserAuthorization{
 
 export interface UserDetails{
     id: number,
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    birthday: Date;
-    address: string;
-    picture: string;
-    verificationStatus: string;
+    username: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    birthday: Date,
+    address: string,
+    picture: string,
+    verificationStatus: string
   }
