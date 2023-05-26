@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
             timeOut: 3000,
             closeButton: true,
           });
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('home/dashboard');
         },
         err => {
           console.log(err);

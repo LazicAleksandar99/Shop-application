@@ -15,6 +15,18 @@ export interface RegistrationUser{
     role: string,
 }
 
+export interface UpdateUser{
+    id: number,
+    username: string,
+    email: string,
+    newpassword: string,
+    oldpassword: string,
+    firstName: string,
+    lastName: string,
+    birthday: Date,
+    address: string
+}
+
 export interface UserAuthorization{
     unique_name: string, //email
     nameid: string,      //id

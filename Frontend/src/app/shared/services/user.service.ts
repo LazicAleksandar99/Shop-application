@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UpdateUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class UserService {
 
   getUserDetails(id: number){
     return this.http.get(this.baseUrl + '/v1/user/' + id, this.getHttpHeader());
+  }
+
+  update(user: UpdateUser){
+    return this.http.patch(this.baseUrl + '/v1/user/update', user, this.getHttpHeader());
   }
 
 

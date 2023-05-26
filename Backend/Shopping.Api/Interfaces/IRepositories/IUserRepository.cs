@@ -7,6 +7,7 @@ namespace Shopping.Api.Interfaces.IRepositories
     public interface IUserRepository
     {
         public Task<User> Authenticate(string email, string password);
+        public Task<bool> CheckOldPassword(int id, string password);
         public Task<bool> Register(User newUser);
         public Task<User> Update(UpdateUserDto updatedUser);
         public Task<User> Verify(int userId, string verificationStatus);
@@ -16,5 +17,9 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<bool> DoesUsernameExist(string username);
         public Task<bool> DoesUserExist(int id);
         public Task<bool> DoesSellerExist(int id);
+        public Task<bool> DoesEmailExistExceptForThisUser(string email, int id);
+        public Task<bool> DoesUsernameExistExceptForThisUser(string username, int id);
+
+
     }
 }

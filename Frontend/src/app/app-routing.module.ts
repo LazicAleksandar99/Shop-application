@@ -6,6 +6,7 @@ import { RegistrationComponent } from './pages/authentication/registration/regis
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteGuard } from './core/route.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/authentication/login',pathMatch:'full'},
@@ -16,22 +17,32 @@ const routes: Routes = [
       { path: 'registration', component: RegistrationComponent},
     ]
   },
-  {
-    path:'dashboard', component: DashboardComponent, canActivate: [RouteGuard],
-    data: {
+  {path:'home', component: HomeComponent, canActivate: [RouteGuard],
+    data:{
       role1: "Administrator",
       role2: "Seller",
       role3: "Customer"
-    }
+    },
+    children:[
+      {
+        path:'dashboard', component: DashboardComponent, canActivate: [RouteGuard],
+        data: {
+          role1: "Administrator",
+          role2: "Seller",
+          role3: "Customer"
+        }
+      },
+      {
+        path:'profile', component: ProfileComponent, canActivate: [RouteGuard],
+        data: {
+          role1: "Administrator",
+          role2: "Seller",
+          role3: "Customer"
+        }
+      }
+    ]
   },
-  {
-    path:'profile', component: ProfileComponent, canActivate: [RouteGuard],
-    data: {
-      role1: "Administrator",
-      role2: "Seller",
-      role3: "Customer"
-    }
-  }
+ 
 ];
 
 @NgModule({

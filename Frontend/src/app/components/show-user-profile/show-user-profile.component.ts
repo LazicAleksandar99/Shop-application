@@ -36,6 +36,6 @@ export class ShowUserProfileComponent implements OnInit {
   }
 
   ChangeProfile(): void {
-    this.route.navigateByUrl('/profile');
+    this.route.navigateByUrl('home/profile');
   }
 }

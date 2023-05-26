@@ -68,10 +68,10 @@ namespace Shopping.Api.Services
 
         public async Task<string> Update(UpdateUserDto updatedUser)
         {
-            if (await _userRepo.DoesEmailExist(updatedUser.Email))
+            if (await _userRepo.DoesEmailExistExceptForThisUser(updatedUser.Email, updatedUser.Id))
                 return "emailexists";
 
-            if (await _userRepo.DoesUsernameExist(updatedUser.Username))
+            if (await _userRepo.DoesUsernameExistExceptForThisUser(updatedUser.Username, updatedUser.Id))
                 return "usernameexists";
 
             if (!await _userRepo.DoesUserExist(updatedUser.Id))
@@ -83,7 +83,10 @@ namespace Shopping.Api.Services
             }
             else if (!String.IsNullOrWhiteSpace(updatedUser.Newpassword) && !String.IsNullOrWhiteSpace(updatedUser.Oldpassword))
             {
-                await _userRepo.Update(updatedUser);
+                if (await _userRepo.CheckOldPassword(updatedUser.Id, updatedUser.Oldpassword))
+                    await _userRepo.Update(updatedUser);
+                else
+                    return "passwordError";
             }
             else
                 return "passwordError";

@@ -21,11 +21,6 @@ namespace Shopping.Api.Controllers
         //Customer
         public async Task<IActionResult> Create(CreateOrderDto newOrder)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             var result = await _orderService.Create(newOrder);
             if (result == null)
                 return BadRequest("Faild to create new order");
@@ -40,7 +35,7 @@ namespace Shopping.Api.Controllers
             var result = await _orderService.History(id);
             if (result == null)
                 return BadRequest("Wrong Id");
-            return Ok();
+            return Ok(result);
         }
 
         [HttpGet]

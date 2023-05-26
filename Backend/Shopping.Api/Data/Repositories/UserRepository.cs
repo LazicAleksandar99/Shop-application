@@ -32,6 +32,19 @@ namespace Shopping.Api.Data.Repositories
 
             return user;
         }
+        public async Task<bool> CheckOldPassword(int id, string password)
+        {
+            var user = await _data.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null || user.PasswordKey == null)
+                return false;
+
+            if (!_helper.MatchPasswordHash(password, user.Password!, user.PasswordKey))
+                return false;
+
+            return true;
+        }
+
         public async Task<bool> Register(User newUser)
         {
             try
@@ -87,7 +100,6 @@ namespace Shopping.Api.Data.Repositories
             var sellers = await _data.Users.Where(u => u.Role == "Seller").ToListAsync();
             return sellers;
         }
-
         public async Task<User> GetUserDetails(int id)
         {
             var user = await _data.Users.SingleOrDefaultAsync(x => x.Id == id);
@@ -97,9 +109,17 @@ namespace Shopping.Api.Data.Repositories
         {
             return await _data.Users.AnyAsync(u => u.Email == email);
         }
+        public async Task<bool> DoesEmailExistExceptForThisUser(string email, int id)
+        {
+            return await _data.Users.AnyAsync(u => u.Email == email && u.Id != id);
+        }
         public async Task<bool> DoesUsernameExist(string username)
         {
             return await _data.Users.AnyAsync(u => u.Username == username);
+        }
+        public async Task<bool> DoesUsernameExistExceptForThisUser(string username,int id)
+        {
+            return await _data.Users.AnyAsync(u => u.Username == username && u.Id != id);
         }
         public async Task<bool> DoesUserExist(int id)
         {

@@ -26,7 +26,10 @@ namespace Shopping.Api.Services
         public async Task<List<HistoryOrderDto>> History(int id)
         {
             if (!await _userRepository.DoesUserExist(id))
-                return null; 
+                return null;
+
+            await _orderRepository.UpdateStatus();
+
             var result = await _orderRepository.History(id);
             var history = _mapper.Map<List<HistoryOrderDto>>(result);
             return history;
@@ -50,6 +53,7 @@ namespace Shopping.Api.Services
 
         public async Task<List<GetAllOrderDto>> AllOrders()
         {
+            await _orderRepository.UpdateStatus();
             var result = await _orderRepository.AllOrders();
             var returnValue = _mapper.Map<List<GetAllOrderDto>>(result);
             return returnValue;

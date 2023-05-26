@@ -18,7 +18,7 @@ namespace Shopping.Api.Data.Repositories
             var historys = await _data.Orders
                 .Include(o => o.Item)
                     .ThenInclude(i => i.Article)
-                .Where(o => o.Id == id)
+                .Where(o => o.Id == id && o.Status == "Delivered")
                 .ToListAsync();
             return historys;
         }
@@ -47,6 +47,19 @@ namespace Shopping.Api.Data.Repositories
                     .ThenInclude(i => i.Article)
                 .ToListAsync();
             return orders;
+        }
+
+        public async Task UpdateStatus()
+        {
+            var orders = await _data.Orders.Where(o => o.Status == "Delivering").ToListAsync();
+
+            foreach (var order in orders)
+            {
+                if (order.DeliveryTime < DateTime.Now)
+                    order.Status = "Delivered";
+            }
+
+            await _data.SaveChangesAsync();
         }
     }
 }

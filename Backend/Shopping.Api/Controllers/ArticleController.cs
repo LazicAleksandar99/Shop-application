@@ -22,10 +22,6 @@ namespace Shopping.Api.Controllers
         //Seller
         public async Task<IActionResult> Create(CreateArticleDto newArticle)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             if (!await _articleService.Create(newArticle))
                 return BadRequest("User not valid");
             return Ok();
@@ -36,10 +32,6 @@ namespace Shopping.Api.Controllers
         [HttpPatch("update")]
         public async Task<IActionResult> Update(UpdateArticleDto updatedArticle)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             if (!await _articleService.Update(updatedArticle))
                 return BadRequest("Updated article not valid");
             return Ok();

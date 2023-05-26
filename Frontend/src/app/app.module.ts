@@ -17,6 +17,8 @@ import { SellerListComponent } from './components/seller-list/seller-list.compon
 import { AllOrdersComponent } from './components/all-orders/all-orders.component';
 import { ShowUserProfileComponent } from './components/show-user-profile/show-user-profile.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ShowUserProfileComponent,
     HasRoleDirective,
     ProfileComponent,
+    NavbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

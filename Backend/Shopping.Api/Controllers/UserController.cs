@@ -65,11 +65,6 @@ namespace Shopping.Api.Controllers
         [HttpPatch("update")]
         public async Task<IActionResult> Update(UpdateUserDto updatedUser)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             if (updatedUser.Birthday.Date > DateTime.Now.Date)
                 return BadRequest("Date is older than current date");
 
