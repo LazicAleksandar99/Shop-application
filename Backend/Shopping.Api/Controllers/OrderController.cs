@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Api.DTO.OrderDTO;
 using Shopping.Api.DTO.UserDTO;
 using Shopping.Api.Interfaces.IServices;
+using System.Data;
 
 namespace Shopping.Api.Controllers
 {
@@ -18,6 +20,7 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer")]
         //Customer
         public async Task<IActionResult> Create(CreateOrderDto newOrder)
         {
@@ -29,6 +32,7 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpGet("history/{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer,Seller")]
         //All? ja (Customer, Seller 100%) - nene ovo samo cust i sell jer za admina sve ide
         public async Task<IActionResult> History(int id)
         {
@@ -39,6 +43,7 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Administrator")]
         //Administrator
         public async Task<IActionResult> AllOrder()
         {

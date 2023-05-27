@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.Api.DTO.ArticleDTO;
 using Shopping.Api.DTO.UserDTO;
 using Shopping.Api.Interfaces.IServices;
 using Shopping.Api.Services;
+using System.Data;
 
 namespace Shopping.Api.Controllers
 {
@@ -19,7 +21,7 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpPost("create")]
-        //Seller
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
         public async Task<IActionResult> Create(CreateArticleDto newArticle)
         {
             if (!await _articleService.Create(newArticle))
@@ -27,9 +29,8 @@ namespace Shopping.Api.Controllers
             return Ok();
         }
 
-        //URADITI
-        //Seller
         [HttpPatch("update")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
         public async Task<IActionResult> Update(UpdateArticleDto updatedArticle)
         {
             if (!await _articleService.Update(updatedArticle))
@@ -37,9 +38,8 @@ namespace Shopping.Api.Controllers
             return Ok();
         }
 
-        //URADITI
-        //Seller
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("delete/{id}/{sellerId}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
         public async Task<IActionResult> Delete(int id, int sellerId)
         {
             if (!await _articleService.Delete(id, sellerId))
@@ -48,6 +48,22 @@ namespace Shopping.Api.Controllers
         }
 
         //get all articles
+        [HttpGet()]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer")]
+        public async Task<IActionResult> GetAllArticles()
+        {
+            var result = await _articleService.GetAllArticles();
+            return Ok(result);
+        }
         //get only articles for seller
+        [HttpGet("{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
+        public async Task<IActionResult> GetSellerArticles(int id)
+        {
+            var result = await _articleService.GetSellerArticles(id);
+            if (result == null)
+                return BadRequest("Wrong Id");
+            return Ok(result);
+        }
     }
 }

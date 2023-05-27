@@ -51,6 +51,7 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer,Seller,Administrator")]
         public async Task<IActionResult> Details(int id)
         {
             if(id < 1)
@@ -61,8 +62,8 @@ namespace Shopping.Api.Controllers
             return Ok(result);
         }
 
-        //Seller
         [HttpPatch("update")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer, Seller, Administrator")]
         public async Task<IActionResult> Update(UpdateUserDto updatedUser)
         {
             if (updatedUser.Birthday.Date > DateTime.Now.Date)
@@ -84,6 +85,7 @@ namespace Shopping.Api.Controllers
 
         //Administrator
         [HttpPatch("verify/{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Administrator")]
         public async Task<IActionResult> Verify(int id)
         {
             if(id <= 0)
@@ -95,6 +97,7 @@ namespace Shopping.Api.Controllers
 
         //Administrator
         [HttpPatch("deny/{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Administrator")]
         public async Task<IActionResult> Deny(int id)
         {
             if (id <= 0)
@@ -106,6 +109,7 @@ namespace Shopping.Api.Controllers
 
         //Administrator
         [HttpGet("sellers")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Administrator")]
         public async Task<IActionResult> GetSellers()
         {
             return Ok(await _userService.GetSellers());

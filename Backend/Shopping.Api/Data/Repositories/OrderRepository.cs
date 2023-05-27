@@ -18,7 +18,7 @@ namespace Shopping.Api.Data.Repositories
             var historys = await _data.Orders
                 .Include(o => o.Item)
                     .ThenInclude(i => i.Article)
-                .Where(o => o.Id == id && o.Status == "Delivered")
+                .Where(o => (o.UserId == id || o.SellerId == id) && o.Status == "Delivered")
                 .ToListAsync();
             return historys;
         }

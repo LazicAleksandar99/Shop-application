@@ -19,6 +19,12 @@ import { ShowUserProfileComponent } from './components/show-user-profile/show-us
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AllArticlesComponent } from './components/all-articles/all-articles.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { SellerArticlesComponent } from './components/seller-articles/seller-articles.component';
+import { ArticleSellerCardComponent } from './components/article-seller-card/article-seller-card.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,12 @@ import { HomeComponent } from './pages/home/home.component';
     HasRoleDirective,
     ProfileComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    OrderHistoryComponent,
+    AllArticlesComponent,
+    ArticleCardComponent,
+    SellerArticlesComponent,
+    ArticleSellerCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +55,7 @@ import { HomeComponent } from './pages/home/home.component';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

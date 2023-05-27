@@ -35,7 +35,8 @@ export class UserService {
   getHttpHeader(): { headers: HttpHeaders; }{
     const httpOptions = {
       headers: new HttpHeaders({
-        Accept: "application/json"
+        Accept: "application/json",
+        Authorization: 'Bearer '+ localStorage.getItem('token')
       })
     };
     return httpOptions;

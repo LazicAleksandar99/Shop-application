@@ -57,5 +57,14 @@ namespace Shopping.Api.Data.Repositories
         {
             return await _data.Articles.AnyAsync(u => u.Id == id);
         }
+
+        public async Task<List<Article>> GetAllArticles()
+        {
+            return await _data.Articles.Where(a => a.Quantity > 0).ToListAsync();
+        }
+        public async Task<List<Article>> GetSellerArticles(int id)
+        {
+            return await _data.Articles.Where(a => a.UserId == id).ToListAsync();
+        }
     }
 }

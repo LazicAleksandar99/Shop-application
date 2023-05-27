@@ -6,7 +6,7 @@ namespace Shopping.Api.DTO.ArticleDTO
     {
         [Required]
         [Range(1, int.MaxValue)]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]

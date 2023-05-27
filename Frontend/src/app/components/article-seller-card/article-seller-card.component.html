@@ -1,0 +1,23 @@
+<div class="height d-flex justify-content-center align-items-center" style="height: 450px;">
+  <div class="card p-3">
+      <div class="d-flex justify-content-between align-items-center ">
+          <div class="mt-2">
+              <h4 class="text-uppercase">Bip Bip</h4>
+              <div class="image" style="margin-left: 0.4cm;margin-top: 1cm;">
+                <img class="rounded-circle img-fluid" src="../../../../assets/images/prodcuts.png" style="width:150px;height:110px">
+              </div>
+              <div class="mt-5">
+                  <h3 class="main-heading mt-0">{{article.name}}</h3>
+                  <h4 class="text-uppercase">{{article.price}}$</h4>
+                </div>
+          </div>
+      </div>
+      <p>{{article.description}}</p>
+      <h4 class="text-uppercase">{{article.quantity}}</h4>
+
+      <button class="btn btn-success" (click)="Edit(article)">Edit</button>
+      <button class="btn btn-danger" (click)="Delete(article.id)">Delete</button>
+      
+      <!-- (click)="AddToCart(article)" -->
+  </div>
+</div>

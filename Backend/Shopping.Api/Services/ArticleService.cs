@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Shopping.Api.Data.Repositories;
 using Shopping.Api.DTO.ArticleDTO;
+using Shopping.Api.DTO.OrderDTO;
 using Shopping.Api.DTO.UserDTO;
 using Shopping.Api.Interfaces.IRepositories;
 using Shopping.Api.Interfaces.IServices;
@@ -45,6 +47,23 @@ namespace Shopping.Api.Services
                 return false;
 
             return await _articleRepository.Delete(id, seller);
+        }
+
+        public async Task<List<GetAllArticlesDto>> GetAllArticles()
+        {
+            var result = await _articleRepository.GetAllArticles();
+            var returnValue = _mapper.Map<List<GetAllArticlesDto>>(result);
+            return returnValue;
+        }
+        public async Task<List<GetSellerArticlesDto>> GetSellerArticles(int id)
+        {
+            if (!await _userRepository.DoesUserExist(id))
+                return null;
+
+
+            var result = await _articleRepository.GetSellerArticles(id);
+            var history = _mapper.Map<List<GetSellerArticlesDto>>(result);
+            return history;
         }
 
     }

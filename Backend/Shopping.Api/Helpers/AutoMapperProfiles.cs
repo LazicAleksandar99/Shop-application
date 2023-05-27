@@ -35,6 +35,12 @@ namespace Shopping.Api.Helpers
             //update article
             CreateMap<UpdateArticleDto, Article>();
 
+            //get all articles
+            CreateMap<Article, GetAllArticlesDto>();
+
+            //get all seller articles
+            CreateMap<Article, GetSellerArticlesDto>();
+
             //ORDER
             //create order
             CreateMap<CreateOrderDto, Order>()
@@ -51,7 +57,9 @@ namespace Shopping.Api.Helpers
             //get order history for customer and seller
             CreateMap<Order, HistoryOrderDto>()
                 .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item));
-            CreateMap<Item, HistoryOrderItemDto>();
+            CreateMap<Item, HistoryOrderItemDto>()
+                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
+                .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
 
             //get all orders
             CreateMap<Order, GetAllOrderDto>()

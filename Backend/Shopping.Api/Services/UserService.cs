@@ -122,7 +122,7 @@ namespace Shopping.Api.Services
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(secretKey!));
 
-            var claims = new Claim[] {
+            var claims = new Claim[] {  
                 new Claim(ClaimTypes.Name,user.Username),
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                 new Claim(ClaimTypes.Role,user.Role.ToString())
@@ -134,7 +134,7 @@ namespace Shopping.Api.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddHours(10),
                 SigningCredentials = signingCredentials
             };
 
