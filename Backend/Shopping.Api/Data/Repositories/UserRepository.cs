@@ -26,6 +26,8 @@ namespace Shopping.Api.Data.Repositories
 
             if (user == null || user.PasswordKey == null)
                 return null!;
+            if (user.VerificationStatus != "Verified")
+                return null;
 
             if (!_helper.MatchPasswordHash(password, user.Password!, user.PasswordKey))
                 return null!;
