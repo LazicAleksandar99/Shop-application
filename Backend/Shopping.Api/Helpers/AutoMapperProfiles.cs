@@ -54,29 +54,25 @@ namespace Shopping.Api.Helpers
             CreateMap<Order, GetCreatedOrderDto>()
                 .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item));
             CreateMap<Item, GetCreatedOrderItemDto>()
-                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
-                .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
+                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name));
 
             //get order history for customer and seller
             CreateMap<Order, HistoryOrderDto>()
                 .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item));
             CreateMap<Item, HistoryOrderItemDto>()
-                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
-                .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
+                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name));
 
             //get all orders
             CreateMap<Order, GetAllOrderDto>()
                 .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item));
             CreateMap<Item, GetAllOrderItemDto>()
-                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
-                .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
+                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name));
 
             //get all active orders
             CreateMap<Order, GetActiveOrderDto>()
                             .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item));
             CreateMap<Item, GetActiveOrderItemDto>()
-                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
-                .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
+                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name));
         }
     }
 }

@@ -58,6 +58,13 @@ namespace Shopping.Api.Controllers
             return Ok(result);
         }
 
-        //cancle Order
+        //cancel Order
+        [HttpPatch("cancel")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer")]
+        public async Task<IActionResult> CancelOrder(CancelOrderDto cancelOrder)
+        {
+
+            return Ok();
+        }
     }
 }
