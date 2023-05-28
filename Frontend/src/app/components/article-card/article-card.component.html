@@ -1,5 +1,5 @@
 <div class="height d-flex justify-content-center align-items-center" style="height: 450px;">
-  <div class="card p-3">
+  <div  *ngIf="article" class="card p-3">
       <div class="d-flex justify-content-between align-items-center ">
           <div class="mt-2">
               <h4 class="text-uppercase">Bip Bip</h4>
@@ -13,10 +13,20 @@
           </div>
       </div>
       <p>{{article.description}}</p>
-      <form [formGroup]="quantityForm">
-        <input  formControlName="quantityField" id="numberId" type="number" value="1" min="1" max="100"  style="text-align:center ;">
+      <form [formGroup]="orderArticle">
+        <div class="col-md-6">
+          <label class="labels">Quantity</label>
+          <input class="form-control"  formControlName="quantity" id="numberId" type="number" min="1" max="10000"  style="text-align:center ;">
+        </div>
+        <input type="text" class="form-control" formControlName="address" placeholder="address" >
+        <span *ngIf="!address.valid && (address.touched)"class="alert alert-danger">
+            Please provide address
+        </span>
+        <input type="text" class="form-control" formControlName="comment" placeholder="comment" >
+        <span *ngIf="!comment.valid && (comment.touched)"class="alert alert-danger">
+            Please provide comment
+        </span>                
       </form>
-      <button class="btn btn-success"  >Add to cart</button>
-      <!-- (click)="AddToCart(article)" -->
+      <button class="btn btn-success" (click)="Order(article)" >Order</button>
   </div>
 </div>

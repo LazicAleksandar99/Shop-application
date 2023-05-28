@@ -42,10 +42,23 @@ namespace Shopping.Api.Data.Repositories
         public async Task<bool> Delete (int id, int sellerId)
         {
             var existingArticle = await _data.Articles.FindAsync(id);
+            var itemsToDelete = await _data.Items.Where(a => a.ArticleId == id).ToListAsync();
+            var orderIdsToDelete = itemsToDelete.Select(i => i.OrderId).Distinct().ToList();
+            var ordersToDelete = await _data.Orders.Where(o => orderIdsToDelete.Contains(o.Id)).ToListAsync();
+
+            if (ordersToDelete != null && ordersToDelete.Count > 0)
+            {
+                foreach(var order in ordersToDelete)
+                {
+                    if (order.Status == "Delivering")
+                        return false;
+                }
+            }
 
             if (existingArticle != null && existingArticle.UserId == sellerId)
             {
-
+                _data.Items.RemoveRange(itemsToDelete);
+                _data.Orders.RemoveRange(ordersToDelete);
                 _data.Articles.RemoveRange(existingArticle);
                 await _data.SaveChangesAsync();
                 return true;

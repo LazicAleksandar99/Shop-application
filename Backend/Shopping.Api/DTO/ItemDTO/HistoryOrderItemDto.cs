@@ -7,6 +7,5 @@ namespace Shopping.Api.DTO.ItemDTO
         public int Id { get; set; }
         public int Quantity { get; set; }
         public string ArticleName { get; set; }
-        public int ArticlePrice { get; set; }
     }
 }

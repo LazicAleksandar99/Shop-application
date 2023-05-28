@@ -19,7 +19,7 @@
       <td>{{order.price}}</td>
       <td>{{order.status}}</td>
       <th>{{order.item.articleName}}</th>
-      <td>{{order.item.articlePrice}}</td>
+      <td>{{order.item.quantity !== 0 ? order.price / order.item.quantity : 'N/A'}}</td>
       <td>{{order.item.quantity}}</td>
   </tr>
   </tbody>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shopping.Api.Interfaces.IRepositories;
 using Shopping.Api.Models;
+using System.Runtime.CompilerServices;
 
 namespace Shopping.Api.Data.Repositories
 {
@@ -68,6 +69,16 @@ namespace Shopping.Api.Data.Repositories
             return null;
         }
 
+        public async Task<bool> CancelOrder(int orderId, int userId)
+        {
+            var order = await _data.Orders.Where(o => o.Id == orderId).SingleOrDefaultAsync();
+            if (order == null || order.UserId != userId)
+                return false;
+
+            order.Status = "Cancelled"; 
+            await _data.SaveChangesAsync();
+            return true;
+        }
 
         public async Task UpdateStatus()
         {

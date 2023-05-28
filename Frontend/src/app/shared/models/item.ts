@@ -1,20 +1,22 @@
 export interface GetItem{
     id: number,
-    quantity: string,
+    quantity: number,
     articleName: string,
-    articlePrice: string,
 }
 
 export interface HistoryItem{
     id: number,
-    quantity: string,
+    quantity: number,
     articleName: string,
-    articlePrice: string,
 }
 
 export interface ActiveItem{
     id: number,
-    quantity: string,
+    quantity: number,
     articleName: string,
-    articlePrice: string,
+}
+
+export interface CreateItem{
+    quantity: number,
+    articleId: number,
 }

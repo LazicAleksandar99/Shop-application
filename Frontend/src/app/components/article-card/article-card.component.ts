@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/shared/models/article';
+import { CreateOrder } from 'src/app/shared/models/order';
+import { OrderService } from 'src/app/shared/services/order.service';
 
 @Component({
   selector: 'app-article-card',
@@ -10,35 +12,71 @@ import { Article } from 'src/app/shared/models/article';
 })
 export class ArticleCardComponent implements OnInit {
   @Input() article!: Article;
-  quantityForm: FormGroup;
-  quantity: any = 1;
+  orderArticle!: FormGroup;
+  newOrder: CreateOrder = {
+    comment: "",
+    address: "",
+    sellerId: -1,
+    userId: -1,
+    item: {
+      articleId: -1,
+      quantity: -1
+    },
+  };
 
   constructor(private fb: FormBuilder,
-              private toastr: ToastrService) {
-    this.quantityForm = this.fb.group({
-      quantityField: [1,Validators.required]
-    })
+              private toastr: ToastrService,
+              private orderService: OrderService) {
+    this.createOrderForm();
   }
   ngOnInit(): void {
   }
 
-  
-  // AddToCart(item: any) : void {
-  //    this.quantity = this.quantityForm.get('quantityField')?.value;
+  createOrderForm() {
+    this.orderArticle = this.fb.group({
+      quantity: [1,[Validators.required, Validators.min(1), Validators.max(10000)]],
+      address: [null,[Validators.required,Validators.minLength(1)]],
+      comment: [null,[Validators.required,Validators.minLength(1)]],
+    });
+  }
 
-  //   var product: any = {
-  //     id: item.id,
-  //     quantity:this.quantity,
-  //     ingredients: item.ingredients,
-  //     name: item.name,
-  //     price: item.price,
-  //     total: item.price*this.quantity
-  //   }
-  //   //this.cartService.addtoCart(product);
-  //   this.toastr.success(this.quantity + ' - ' + item.name + ' have been succesfuly added to your cart' , 'Success!' , {
-  //     timeOut: 3000,
-  //     closeButton: true,
-  //   });
-  // }
+  Order(theArticle: Article){
+    if(this.orderArticle.valid){
+      this.newOrder.sellerId = theArticle.userId;
+      this.newOrder.item.articleId = theArticle.id;
+      this.newOrder.item.quantity = this.quantity.value;
+      this.newOrder.address = this.address.value;
+      this.newOrder.comment = this.comment.value;
+      this.orderService.createOrder(this.newOrder).subscribe(
+        data => {
+          this.toastr.success('You successfully made order!', 'Succes!', {
+            timeOut: 3000,
+            closeButton: true,
+          });
+        },
+        error => {
+          this.toastr.error("Faild to create order", 'Error!' , {
+            timeOut: 3000,
+            closeButton: true,
+          });
+        }
+      );
+    }
+    else{
+      this.toastr.error("Input not valid", 'Error!' , {
+        timeOut: 3000,
+        closeButton: true,
+      });
+    }
+  }
 
+  get address() {
+    return this.orderArticle.get('address') as FormControl;
+  }
+  get comment() {
+    return this.orderArticle.get('comment') as FormControl;
+  }
+  get quantity() {
+    return this.orderArticle.get('quantity') as FormControl;
+  }
 }
