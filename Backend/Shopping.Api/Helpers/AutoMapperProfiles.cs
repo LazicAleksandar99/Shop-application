@@ -41,6 +41,9 @@ namespace Shopping.Api.Helpers
             //get all seller articles
             CreateMap<Article, GetSellerArticlesDto>();
 
+            //get article details
+            CreateMap<Article, GetArticleDto>();
+
             //ORDER
             //create order
             CreateMap<CreateOrderDto, Order>()
@@ -68,6 +71,12 @@ namespace Shopping.Api.Helpers
                 .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
                 .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
 
+            //get all active orders
+            CreateMap<Order, GetActiveOrderDto>()
+                            .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item));
+            CreateMap<Item, GetActiveOrderItemDto>()
+                .ForMember(dest => dest.ArticleName, opt => opt.MapFrom(src => src.Article.Name))
+                .ForMember(dest => dest.ArticlePrice, opt => opt.MapFrom(src => src.Article.Price));
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<Order> Create(Order newOrder);
         public Task<List<Order>> AllOrders();
         public Task UpdateStatus();
-
-
+        public Task<List<Order>> GetActiveOrders(int id);
     }
 }

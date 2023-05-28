@@ -11,3 +11,10 @@ export interface HistoryItem{
     articleName: string,
     articlePrice: string,
 }
+
+export interface ActiveItem{
+    id: number,
+    quantity: string,
+    articleName: string,
+    articlePrice: string,
+}

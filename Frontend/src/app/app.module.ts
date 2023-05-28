@@ -25,6 +25,8 @@ import { AllArticlesComponent } from './components/all-articles/all-articles.com
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { SellerArticlesComponent } from './components/seller-articles/seller-articles.component';
 import { ArticleSellerCardComponent } from './components/article-seller-card/article-seller-card.component';
+import { ArticleComponent } from './pages/article/article.component';
+import { ActiveOrdersComponent } from './components/active-orders/active-orders.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { ArticleSellerCardComponent } from './components/article-seller-card/art
     ArticleCardComponent,
     SellerArticlesComponent,
     ArticleSellerCardComponent,
+    ArticleComponent,
+    ActiveOrdersComponent,
   ],
   imports: [
     BrowserModule,

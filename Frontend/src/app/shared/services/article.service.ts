@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { NewArticle } from '../models/article';
+import { Article, NewArticle } from '../models/article';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -21,6 +21,14 @@ export class ArticleService {
     return this.http.post(this.baseUrl + '/v1/article/create', user, this.getHttpHeader());
   }
 
+  update(article: Article){
+    return this.http.patch(this.baseUrl + '/v1/article/update', article, this.getHttpHeader());
+  }
+
+  getArticalDetails(id: number){
+    return this.http.get(this.baseUrl + '/v1/article/details/' + id, this.getHttpHeader());
+  }
+
   getAllArticles(){
     return this.http.get(this.baseUrl + '/v1/article', this.getHttpHeader());
   }
@@ -34,8 +42,6 @@ export class ArticleService {
     this.sellerId = this.authService.getUserId(this.token);
     return this.http.delete(this.baseUrl + '/v1/article/delete/' + id + '/' + this.sellerId , this.getHttpHeader());
   }
-
-
 
   getHttpHeader(): { headers: HttpHeaders; }{
     const httpOptions = {

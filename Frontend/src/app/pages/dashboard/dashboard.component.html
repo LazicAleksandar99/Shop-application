@@ -10,10 +10,12 @@
     <div class="col-6" *appHasRole="seller">
       <app-seller-articles></app-seller-articles>
       <app-order-history></app-order-history>
+      <app-active-orders></app-active-orders>
     </div>
     <div class="col-6" *appHasRole="customer">
       <app-all-articles></app-all-articles>
       <app-order-history></app-order-history>
+      <app-active-orders></app-active-orders>
     </div>
     <div class="col" *appHasRole="admin">
     </div>

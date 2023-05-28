@@ -7,6 +7,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RouteGuard } from './core/route.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ArticleComponent } from './pages/article/article.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/authentication/login',pathMatch:'full'},
@@ -38,6 +39,12 @@ const routes: Routes = [
           role1: "Administrator",
           role2: "Seller",
           role3: "Customer"
+        }
+      },
+      {
+        path:'article/:id', component: ArticleComponent, canActivate: [RouteGuard],
+        data: {
+          role2: "Seller",
         }
       }
     ]

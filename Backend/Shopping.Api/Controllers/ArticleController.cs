@@ -47,6 +47,18 @@ namespace Shopping.Api.Controllers
             return Ok();
         }
 
+        [HttpGet("details/{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
+        public async Task<IActionResult> GetArticle(int id)
+        {
+            if (id < 1)
+                return BadRequest("Invalid id");
+            var result = await _articleService.GetArticle(id);
+            if (result == null)
+                return BadRequest("No user found");
+            return Ok(result);
+        }
+
         //get all articles
         [HttpGet()]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer")]

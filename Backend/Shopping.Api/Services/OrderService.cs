@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Shopping.Api.Data.Repositories;
 using Shopping.Api.DTO.ArticleDTO;
+using Shopping.Api.DTO.ItemDTO;
 using Shopping.Api.DTO.OrderDTO;
 using Shopping.Api.Interfaces.IRepositories;
 using Shopping.Api.Interfaces.IServices;
@@ -58,6 +59,15 @@ namespace Shopping.Api.Services
             var returnValue = _mapper.Map<List<GetAllOrderDto>>(result);
             return returnValue;
         }
+
+        public async Task<List<GetActiveOrderDto>> GetActiveOrders(int id)
+        {
+            await _orderRepository.UpdateStatus();
+            var result = await _orderRepository.GetActiveOrders(id);
+            var returnValue = _mapper.Map<List<GetActiveOrderDto>>(result);
+            return returnValue;
+        }
+
 
     }
 }

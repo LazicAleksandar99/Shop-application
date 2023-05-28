@@ -18,6 +18,10 @@ getOrderHistory(id: number){
   return this.http.get(this.baseUrl + '/v1/order/history/' + id, this.getHttpHeader());
 }
 
+getActiveOrder(id: number){
+  return this.http.get(this.baseUrl + '/v1/order/active/' + id, this.getHttpHeader());
+}
+
 getHttpHeader(): { headers: HttpHeaders; }{
   const httpOptions = {
     headers: new HttpHeaders({

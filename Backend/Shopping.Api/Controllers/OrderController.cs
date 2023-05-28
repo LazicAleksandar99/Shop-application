@@ -21,7 +21,6 @@ namespace Shopping.Api.Controllers
 
         [HttpPost("create")]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer")]
-        //Customer
         public async Task<IActionResult> Create(CreateOrderDto newOrder)
         {
             var result = await _orderService.Create(newOrder);
@@ -33,7 +32,6 @@ namespace Shopping.Api.Controllers
 
         [HttpGet("history/{id}")]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer,Seller")]
-        //All? ja (Customer, Seller 100%) - nene ovo samo cust i sell jer za admina sve ide
         public async Task<IActionResult> History(int id)
         {
             var result = await _orderService.History(id);
@@ -42,9 +40,18 @@ namespace Shopping.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("active/{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer,Seller")]
+        public async Task<IActionResult> GetActiveOrders(int id)
+        {
+            var result = await _orderService.GetActiveOrders(id);
+            if (result == null)
+                return BadRequest("Wrong Id");
+            return Ok(result);
+        }
+
         [HttpGet]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Administrator")]
-        //Administrator
         public async Task<IActionResult> AllOrder()
         {
             var result = await _orderService.AllOrders();

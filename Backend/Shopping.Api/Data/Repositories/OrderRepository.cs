@@ -49,6 +49,26 @@ namespace Shopping.Api.Data.Repositories
             return orders;
         }
 
+        public async Task<List<Order>> GetActiveOrders(int id)
+        {
+            var sellerOrders = await _data.Orders
+                .Where(o => o.UserId == id && o.Status == "Delivering")
+                .Include(o => o.Item)
+                    .ThenInclude(i => i.Article)
+                .ToListAsync();
+            var userOrders = await _data.Orders.Where(o => o.SellerId == id && o.Status == "Delivering")
+                .Include(o => o.Item)
+                    .ThenInclude(i => i.Article)
+                .ToListAsync();
+
+            if (sellerOrders != null && sellerOrders.Count > 0)
+                return sellerOrders;
+            if (userOrders != null && userOrders.Count > 0)
+                return userOrders;
+            return null;
+        }
+
+
         public async Task UpdateStatus()
         {
             var orders = await _data.Orders.Where(o => o.Status == "Delivering").ToListAsync();

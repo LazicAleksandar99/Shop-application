@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Article } from 'src/app/shared/models/article';
 import { ArticleService } from 'src/app/shared/services/article.service';
@@ -15,7 +16,8 @@ export class ArticleSellerCardComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
-              private articleService: ArticleService) {
+              private articleService: ArticleService,
+              private router: Router) {
   }
   ngOnInit(): void {
   }
@@ -36,7 +38,7 @@ export class ArticleSellerCardComponent implements OnInit {
     )
   }
 
-  Edit(article: Article): void{
-
+  Edit(id: number): void{
+    this.router.navigateByUrl('home/article/' + id);
   }
 }

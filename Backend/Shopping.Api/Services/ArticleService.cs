@@ -48,7 +48,12 @@ namespace Shopping.Api.Services
 
             return await _articleRepository.Delete(id, seller);
         }
-
+        public async Task<GetArticleDto> GetArticle(int id)
+        {
+            var result = await _articleRepository.GetArticle(id);
+            var returnValue = _mapper.Map<GetArticleDto>(result);
+            return returnValue;
+        }
         public async Task<List<GetAllArticlesDto>> GetAllArticles()
         {
             var result = await _articleRepository.GetAllArticles();

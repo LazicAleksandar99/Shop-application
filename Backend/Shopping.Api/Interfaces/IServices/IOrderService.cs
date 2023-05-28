@@ -8,6 +8,7 @@ namespace Shopping.Api.Interfaces.IServices
         public Task<List<HistoryOrderDto>> History(int id);
         public Task<GetCreatedOrderDto> Create(CreateOrderDto newArticle);
         public Task<List<GetAllOrderDto>> AllOrders();
+        public Task<List<GetActiveOrderDto>> GetActiveOrders(int id);
 
     }
 }

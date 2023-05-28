@@ -10,5 +10,7 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<bool> DoesArticleExist(int id);
         public Task<List<Article>> GetAllArticles();
         public Task<List<Article>> GetSellerArticles(int id);
+        public Task<Article> GetArticle(int id);
+
     }
 }

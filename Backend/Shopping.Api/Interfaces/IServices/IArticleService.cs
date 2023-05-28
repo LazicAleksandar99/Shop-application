@@ -8,6 +8,7 @@ namespace Shopping.Api.Interfaces.IServices
         public Task<bool> Create(CreateArticleDto newArticle);
         public Task<bool> Update(UpdateArticleDto oldArticle);
         public Task<bool> Delete(int id, int seller);
+        public Task<GetArticleDto> GetArticle(int id);
         public Task<List<GetAllArticlesDto>> GetAllArticles();
         public Task<List<GetSellerArticlesDto>> GetSellerArticles(int id);
     }

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { OrderHistory } from 'src/app/shared/models/order';
+import { ActiveOrder } from 'src/app/shared/models/order';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 
 @Component({
-  selector: 'app-order-history',
-  templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.css']
+  selector: 'app-active-orders',
+  templateUrl: './active-orders.component.html',
+  styleUrls: ['./active-orders.component.css']
 })
-export class OrderHistoryComponent implements OnInit {
-  orders!: OrderHistory[];
+export class ActiveOrdersComponent implements OnInit {
+  orders!: ActiveOrder[];
   token: any;
   userId: any;
 
@@ -19,20 +19,20 @@ export class OrderHistoryComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.getOrderHistory();
+    this.getActiveOrder();
   }
 
-  getOrderHistory(): void{
+  getActiveOrder(): void{
     this.token = localStorage.getItem('token');
     this.userId = this.authService.getUserId(this.token);
-    this.orderService.getOrderHistory(this.userId).subscribe(
+    this.orderService.getActiveOrder(this.userId).subscribe(
       data=>{
-        this.orders = data as OrderHistory[];
+        this.orders = data as ActiveOrder[];
       }, error =>{
         this.toastr.error("Failed to get any data", 'Error!' , {
           timeOut: 3000,
           closeButton: true,
-        });
+        });  
       }
     );
   }

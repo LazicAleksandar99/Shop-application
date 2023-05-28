@@ -5,16 +5,15 @@
         class="rounded-circle img-fluid" style="width: 150px;height: 150px;"></div>
       <ng-template #elseBlock><img  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="avatar"
         class="rounded-circle img-fluid" style="width: 150px;"></ng-template>
-      <img *ngIf="user.verificationStatus === 'verified'"  style="width: 50px; height: 50px;" src="https://cdn-icons-png.flaticon.com/512/656/656853.png" alt="Verified">
-      <!-- Picture for non-verified status -->
-      <img *ngIf="user.verificationStatus !== 'verified'"  style="width: 50px; height: 50px;" src="https://w7.pngwing.com/pngs/245/870/png-transparent-cancel-denied-delete-locked-closed-icon-thumbnail.png" alt="Non-Verified">
+      <br>
+      <img *ngIf="user.verificationStatus === 'Verified'"  style="width: 50px; height: 50px;" src="https://cdn-icons-png.flaticon.com/512/656/656853.png" alt="Verified">
+      <img *ngIf="user.verificationStatus !== 'Verified'"  style="width: 50px; height: 50px;" src="https://w7.pngwing.com/pngs/245/870/png-transparent-cancel-denied-delete-locked-closed-icon-thumbnail.png" alt="Non-Verified">
       <h5 class="my-3">{{user.firstName}} {{user.lastName}}</h5>
       <p class="text-muted mb-1">Email: {{user.email}}</p>
       <p class="text-muted mb-1">Username: {{user.username}}</p>
       <p class="text-muted mb-4">Address: {{user.address}}</p>
       <p class="text-muted mb-4">Birthday: {{user.birthday | date:'MM/dd/yyyy'}}</p>
     </div>
-
     <div class="d-flex justify-content-center mb-2">
       <button type="button" class="btn btn-primary" style="background-color: #ffc244;color:black;" (click)="ChangeProfile()">Change Profile</button>
     </div>

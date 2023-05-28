@@ -15,7 +15,7 @@
       <p>{{article.description}}</p>
       <h4 class="text-uppercase">{{article.quantity}}</h4>
 
-      <button class="btn btn-success" (click)="Edit(article)">Edit</button>
+      <button class="btn btn-success" (click)="Edit(article.id)">Edit</button>
       <button class="btn btn-danger" (click)="Delete(article.id)">Delete</button>
       
       <!-- (click)="AddToCart(article)" -->

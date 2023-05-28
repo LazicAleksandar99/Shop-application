@@ -53,6 +53,12 @@ namespace Shopping.Api.Data.Repositories
             return false;
         }
 
+        public async Task<Article> GetArticle(int id)
+        {
+            var article = await _data.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            return article;
+        }
+
         public async Task<bool> DoesArticleExist(int id)
         {
             return await _data.Articles.AnyAsync(u => u.Id == id);
