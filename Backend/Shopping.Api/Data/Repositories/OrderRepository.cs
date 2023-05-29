@@ -75,8 +75,10 @@ namespace Shopping.Api.Data.Repositories
             if (order == null || order.UserId != userId)
                 return false;
 
-           // if(order.CreationTime > DateTime.Now)
-           //mora proci bar sat vremena od pocetka 
+            TimeSpan elapsed = DateTime.Now - order.CreationTime;
+            if(elapsed.TotalHours < 1)
+                return false;
+            
             order.Status = "Cancelled"; 
             await _data.SaveChangesAsync();
             return true;

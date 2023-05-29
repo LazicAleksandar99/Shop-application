@@ -68,6 +68,12 @@ namespace Shopping.Api.Services
             return returnValue;
         }
 
+        public async Task<bool> CancelOrder(CancelOrderDto cancelOrder)
+        {
+            await _orderRepository.UpdateStatus();
+            var result = await _orderRepository.CancelOrder(cancelOrder.orderId, cancelOrder.userId);
+            return result;
+        }
 
     }
 }

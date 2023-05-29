@@ -9,5 +9,6 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<List<Order>> AllOrders();
         public Task UpdateStatus();
         public Task<List<Order>> GetActiveOrders(int id);
+        public Task<bool> CancelOrder(int orderId, int userId);
     }
 }

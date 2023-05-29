@@ -9,6 +9,7 @@ namespace Shopping.Api.Interfaces.IServices
         public Task<GetCreatedOrderDto> Create(CreateOrderDto newArticle);
         public Task<List<GetAllOrderDto>> AllOrders();
         public Task<List<GetActiveOrderDto>> GetActiveOrders(int id);
+        public Task<bool> CancelOrder(CancelOrderDto cancelOrder);
 
     }
 }
