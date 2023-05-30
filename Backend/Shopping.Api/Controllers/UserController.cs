@@ -12,9 +12,12 @@ namespace Shopping.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService) 
+        private readonly IPhotoService _photoService;
+
+        public UserController(IUserService userService, IPhotoService photoService) 
         {
             _userService = userService;
+            _photoService = photoService;
         }
 
         //[ProducesResponseType(StatusCodes.Status200OK)]
@@ -50,6 +53,36 @@ namespace Shopping.Api.Controllers
             return Ok();
         }
 
+        [HttpPost("photo/{email}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> AddPhoto(string email,[FromForm(Name = "myfile")] IFormFile file)
+        {   
+            var result = await _userService.AddPhoto(file, email);
+            if (result is string)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok();
+            }
+        }
+
+        [HttpPost("photo/update/{id}")]
+        [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer,Seller,Administrator")]
+        public async Task<IActionResult> UpdatePhoto(int id, [FromForm(Name = "myfile")] IFormFile file)
+        {
+            var result = await _userService.UpdatePhoto(file, id);
+            if (result is string)
+            {
+                return BadRequest(result);
+            }
+            else
+            {
+                return Ok();
+            }
+        }
+
         [HttpGet("{id}")]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer,Seller,Administrator")]
         public async Task<IActionResult> Details(int id)
@@ -61,6 +94,8 @@ namespace Shopping.Api.Controllers
                 return BadRequest("No user found");
             return Ok(result);
         }
+
+
 
         [HttpPatch("update")]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Customer, Seller, Administrator")]

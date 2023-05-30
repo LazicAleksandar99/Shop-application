@@ -82,19 +82,20 @@ export class ProfileComponent implements OnInit {
             if(this.selectedFile){
               let formData = new FormData();
               formData.append("myfile",this.selectedFile);
-              // this.profileService.updateUserPhoto(this.id,formData).subscribe(
-              //   data=>{
-              //     this.toastr.success('Your profile has been successfully updated', 'Succes!', {
-              //       timeOut: 3000,
-              //       closeButton: true,
-              //     });
-              //   }, error => {
-              //     this.toastr.error(error.error.errorMessage, 'Error!', {
-              //       timeOut: 3000,
-              //       closeButton: true,
-              //     });
-              //   }
-              // );
+              this.token = localStorage.getItem('token');
+              this.userService.updatePhoto(this.authService.getUserId(this.token),formData).subscribe(
+                data=>{
+                  this.toastr.success('Your profile has been successfully updated', 'Succes!', {
+                    timeOut: 3000,
+                    closeButton: true,
+                  });
+                }, error => {
+                  this.toastr.error("Faild to update picture", 'Error!', {
+                    timeOut: 3000,
+                    closeButton: true,
+                  });
+                }
+              );
             }
           }, error =>{
             this.toastr.error("Invalid input", 'Error!' , {

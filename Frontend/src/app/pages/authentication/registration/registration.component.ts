@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserRole } from 'src/app/shared/enums/user-role.enum';
 import { RegistrationUser } from 'src/app/shared/models/user';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-registration',
@@ -31,7 +32,8 @@ export class RegistrationComponent implements OnInit {
   constructor(private router: Router,
               private fb: FormBuilder,
               private authService: AuthenticationService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private userService: UserService
               ) {
 
       this.createRegisterationForm();
@@ -43,14 +45,14 @@ export class RegistrationComponent implements OnInit {
 
   createRegisterationForm() {
     this.registerationForm = this.fb.group({
-      username: [null,Validators.required],
-      email: [null,[Validators.required,Validators.email]],
-      firstname: [null,[Validators.required,Validators.minLength(3)]],
-      lastname: [null,[Validators.required,Validators.minLength(3)]],
-      birthday: ["2022-05-05",[Validators.required]],
-      address: [null,[Validators.required]],
-      password: [null, [Validators.required, Validators.minLength(8)]],
-      confirmPassword: [null, Validators.required],
+      username: ["asdsad",Validators.required],
+      email: ["a@a.com",[Validators.required,Validators.email]],
+      firstname: ["sadsad",[Validators.required,Validators.minLength(3)]],
+      lastname: ["asdasd",[Validators.required,Validators.minLength(3)]],
+      birthday: ["2001-05-05",[Validators.required]],
+      address: ["KASD",[Validators.required]],
+      password: ["password", [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ["password", Validators.required],
     },{validators: this.passwordMatchingValidatior});
 
   }
@@ -101,25 +103,25 @@ export class RegistrationComponent implements OnInit {
               timeOut: 3000,
               closeButton: true,
             });
-            this.id = data;
+            // this.id = data;
             if(this.selectedFile){
               let formData = new FormData();
               formData.append("myfile",this.selectedFile);
-              // this.profileService.updateUserPhoto(this.id,formData).subscribe(
-              //   data=>{
-              //     this.toastr.success('Your profile has been successfully updated', 'Succes!', {
-              //       timeOut: 3000,
-              //       closeButton: true,
-              //     });
-              //   }, error => {
-              //     this.toastr.error(error.error.errorMessage, 'Error!', {
-              //       timeOut: 3000,
-              //       closeButton: true,
-              //     });
-              //   }
-              // );
+              this.userService.addPhoto(this.email.value,formData).subscribe(
+                data=>{
+                  this.toastr.success('Photo added', 'Succes!', {
+                    timeOut: 3000,
+                    closeButton: true,
+                  });
+                }, error => {
+                  this.toastr.error("Faild to upload photo", 'Error!', {
+                    timeOut: 3000,
+                    closeButton: true,
+                  });
+                }
+              );
             }
-            this.router.navigate(['/user/login']);
+            this.router.navigate(['/authentication/login']);
           }, error =>{
             this.toastr.error("Invalid input", 'Error!' , {
               timeOut: 3000,
@@ -145,9 +147,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   userData(): RegistrationUser {
-    let formData = new FormData();
-    formData.append("myfile",this.selectedFile);
-    console.log(this.selectedFile);
     return this.user = {
         username: this.username.value,
         email: this.email.value,
@@ -156,8 +155,7 @@ export class RegistrationComponent implements OnInit {
         birthday: this.registerationForm.value['birthday'],
         address: this.address.value,
         role: this.userRole,
-        password: this.password.value,
-        picture: this.selectedFile
+        password: this.password.value
     };
   }
 

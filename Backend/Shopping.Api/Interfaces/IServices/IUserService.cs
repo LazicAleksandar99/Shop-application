@@ -11,5 +11,8 @@ namespace Shopping.Api.Interfaces.IServices
         public Task<bool> Verify(int id, string action);
         public Task<List<GetSellersDto>> GetSellers();
         public Task<GetUserDto> GetUserDetails(int id);
+        public Task<Object> AddPhoto(IFormFile file, string email);
+        public Task<Object> UpdatePhoto(IFormFile file, int id);
+
     }
 }

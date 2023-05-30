@@ -63,13 +63,35 @@ namespace Shopping.Api.Services
             user.PasswordKey = passwordKey;
             user.VerificationStatus = newUser.Role == "Customer" ? "Verified" : "Pending";
             //user.Role = "Administrator";
-            var photo = await _photoService.UploadPhotoAsync(newUser.Picture);
+            //var photo = await _photoService.UploadPhotoAsync(newUser.Picture);
+            user.Picture = "";
             var response = await _userRepo.Register(user);
 
             if (!response)
                 return "failed"; 
 
             return "successful";
+        }
+
+        public async Task<Object> AddPhoto(IFormFile file, string email)
+        {
+            var result = await _photoService.UploadPhotoAsync(file);
+            if (result.Error != null)
+                return result.Error.Message;
+
+            await _userRepo.UpdateUserPhoto(email, result.SecureUrl.AbsoluteUri);
+
+            return true;
+        }
+        public async Task<Object> UpdatePhoto(IFormFile file, int id)
+        {
+            var result = await _photoService.UploadPhotoAsync(file);
+            if (result.Error != null)
+                return result.Error.Message;
+
+            await _userRepo.UpdateUserPhoto(id, result.SecureUrl.AbsoluteUri);
+
+            return true;
         }
 
         public async Task<string> Update(UpdateUserDto updatedUser)

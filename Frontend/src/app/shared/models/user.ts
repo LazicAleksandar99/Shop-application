@@ -10,9 +10,9 @@ export interface RegistrationUser{
     email: string,
     birthday: Date,
     address: string,
-    picture: File,
     password: string,
     role: string,
+    //picture: File,
 }
 
 export interface UpdateUser{

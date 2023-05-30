@@ -131,5 +131,17 @@ namespace Shopping.Api.Data.Repositories
         {
             return await _data.Users.AnyAsync(u => u.Id == id && u.Role == "Seller");
         }
+        public async Task UpdateUserPhoto(string email, string photo)
+        {
+            var user = await _data.Users.SingleOrDefaultAsync(x => x.Email == email);
+            user.Picture = photo;
+            await _data.SaveChangesAsync();
+        }
+        public async Task UpdateUserPhoto(int id, string photo)
+        {
+            var user = await _data.Users.SingleOrDefaultAsync(x => x.Id == id);
+            user.Picture = photo;
+            await _data.SaveChangesAsync();
+        }
     }
 }

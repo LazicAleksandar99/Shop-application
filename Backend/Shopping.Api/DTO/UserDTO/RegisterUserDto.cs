@@ -9,7 +9,6 @@ namespace Shopping.Api.DTO.UserDTO
         [Required]
         public string FirstName { get; set; }
         [Required]
-
         public string LastName { get; set; }
         [Required]
         public string Address { get; set; }
@@ -23,7 +22,7 @@ namespace Shopping.Api.DTO.UserDTO
         [Required]
         [RegularExpression("^(Customer|Seller)$", ErrorMessage = "Role must be either 'Customer' or 'Seller'.")]
         public string Role { get; set; }
-        public FormFile Picture { get; set; }
+        //public FormFile Picture { get; set; }
 
     }
 }

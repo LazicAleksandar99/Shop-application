@@ -31,7 +31,21 @@ export class UserService {
     return this.http.patch(this.baseUrl + '/v1/user/update', user, this.getHttpHeader());
   }
 
+  addPhoto(email: string, file: FormData){
+    return this.http.post(this.baseUrl + '/v1/user/photo/' + email, file, this.getHttpHeaderNoToken())
+  }
 
+  updatePhoto(id: number, file: FormData){
+    return this.http.post(this.baseUrl + '/v1/user/photo/update/' + id, file, this.getHttpHeader())
+  }
+  getHttpHeaderNoToken(): { headers: HttpHeaders; }{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Accept: "application/json"
+      })
+    };
+    return httpOptions;
+  }
   getHttpHeader(): { headers: HttpHeaders; }{
     const httpOptions = {
       headers: new HttpHeaders({

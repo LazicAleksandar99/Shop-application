@@ -19,7 +19,7 @@ namespace Shopping.Api.Interfaces.IRepositories
         public Task<bool> DoesSellerExist(int id);
         public Task<bool> DoesEmailExistExceptForThisUser(string email, int id);
         public Task<bool> DoesUsernameExistExceptForThisUser(string username, int id);
-
-
+        public Task UpdateUserPhoto(string email, string photo);
+        public Task UpdateUserPhoto(int id, string photo);
     }
 }
