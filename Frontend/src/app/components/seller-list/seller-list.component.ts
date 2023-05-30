@@ -37,7 +37,7 @@ export class SellerListComponent implements OnInit {
           closeButton: true,
         });
       }, error =>{
-        this.toastr.error(error.error.errorMessage, 'Error!', {
+        this.toastr.error("Faild to hire a person", 'Error!', {
           timeOut: 3000,
           closeButton: true,
         });
@@ -54,7 +54,7 @@ export class SellerListComponent implements OnInit {
         closeButton: true,
       });
       }, error =>{
-        this.toastr.error(error.error.errorMessage, 'Succes!', {
+        this.toastr.error("Faild to decline a job application", 'Succes!', {
           timeOut: 3000,
           closeButton: true,
         });

@@ -12,11 +12,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   verify(id: number){
-    return this.http.patch(this.baseUrl + '/v1/user/verify/' + id , this.getHttpHeader());
+    return this.http.patch(this.baseUrl + '/v1/user/verify/' + id, null , this.getHttpHeader());
   }
 
   deny(id: number){
-    return this.http.patch(this.baseUrl + '/v1/user/deny/' + id, this.getHttpHeader());
+    return this.http.patch(this.baseUrl + '/v1/user/deny/' + id, null, this.getHttpHeader());
   }
 
   getSeller(){

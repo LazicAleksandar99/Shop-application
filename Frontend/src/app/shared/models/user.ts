@@ -10,7 +10,7 @@ export interface RegistrationUser{
     email: string,
     birthday: Date,
     address: string,
-    picture: string,
+    picture: File,
     password: string,
     role: string,
 }

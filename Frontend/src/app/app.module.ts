@@ -27,6 +27,7 @@ import { SellerArticlesComponent } from './components/seller-articles/seller-art
 import { ArticleSellerCardComponent } from './components/article-seller-card/article-seller-card.component';
 import { ArticleComponent } from './pages/article/article.component';
 import { ActiveOrdersComponent } from './components/active-orders/active-orders.component';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { ActiveOrdersComponent } from './components/active-orders/active-orders.
     HttpClientModule,
     ToastrModule.forRoot(),
     NgxPaginationModule,
+    CountdownModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

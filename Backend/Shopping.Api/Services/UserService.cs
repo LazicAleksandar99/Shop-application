@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MimeKit;
+using MailKit;
+using MailKit.Net.Smtp;
 using Shopping.Api.DTO.UserDTO;
 using Shopping.Api.Interfaces.IRepositories;
 using Shopping.Api.Interfaces.IServices;
@@ -8,7 +11,6 @@ using Shopping.Api.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text;
 
 namespace Shopping.Api.Services
@@ -18,11 +20,14 @@ namespace Shopping.Api.Services
         private readonly IConfiguration _configuration;
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
-        public UserService(IConfiguration configuration, IUserRepository userRepository, IMapper mapper)
+        private readonly IPhotoService _photoService;
+
+        public UserService(IConfiguration configuration, IUserRepository userRepository, IMapper mapper, IPhotoService photoService)
         {
             _configuration = configuration;
             _userRepo = userRepository;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
         public async Task<string> Authenticate(LoginUserDto loginUser)
@@ -57,7 +62,8 @@ namespace Shopping.Api.Services
             user.Password = passwordHash;
             user.PasswordKey = passwordKey;
             user.VerificationStatus = newUser.Role == "Customer" ? "Verified" : "Pending";
-            user.Role = "Administrator";
+            //user.Role = "Administrator";
+            var photo = await _photoService.UploadPhotoAsync(newUser.Picture);
             var response = await _userRepo.Register(user);
 
             if (!response)
@@ -100,6 +106,9 @@ namespace Shopping.Api.Services
                 return false;
 
             await _userRepo.Verify(id, verificationStatus);
+            string message = verificationStatus == "Verified" ? "Congratulation you have been verified successfully!" : "Sorry, we currently have to much of sellers on our site... Better luck next time";
+            var result = await _userRepo.GetUserDetails(id);
+            SendEmail(result.Email, message);
             return true;
         }
         public async Task<List<GetSellersDto>> GetSellers()
@@ -141,6 +150,38 @@ namespace Shopping.Api.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public void SendEmail(string recipientEmail, string theMessage)
+        {
+
+            MimeMessage message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress("ShopUp", "acopro0@gmail.com"));
+            message.To.Add(MailboxAddress.Parse(recipientEmail));
+            message.Subject = "Verification";
+            message.Body = new TextPart("plain")
+            {
+                Text = theMessage
+            };
+
+            SmtpClient client = new SmtpClient();
+
+            try
+            {
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate("acopro0@gmail.com", "klngnrdntduxvkxg");
+                client.Send(message);
+                Console.WriteLine("Email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error sending email: " + ex.Message);
+            }
+            finally
+            {
+                client.Disconnect(true);
+                client.Dispose();
+            }
         }
     }
 }

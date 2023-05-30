@@ -31,9 +31,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private router: Router,
               private fb: FormBuilder,
               private authService: AuthenticationService,
-              private toastr: ToastrService,
-              //private profileService: UserService,
-              //private locationService: LocationService,
+              private toastr: ToastrService
               ) {
 
       this.createRegisterationForm();
@@ -95,7 +93,7 @@ export class RegistrationComponent implements OnInit {
 
   OnSubmit(){
     if (this.registerationForm.valid) {
-      //if(this.streetAddressValid()){
+      if(this.selectedFile){
         console.log(this.userData())
         this.authService.register(this.userData()).subscribe(
           data=>{
@@ -130,14 +128,13 @@ export class RegistrationComponent implements OnInit {
           }
 
         );
-      // }
-      // else{
-      //   this.toastr.error("Please enter valid street address: ST.NAME ST.NUMBER,CITY,COUNTRY", 'Error!' , {
-      //     timeOut: 3000,
-      //     closeButton: true,
-      //   });
-      // }
-
+      }
+      else{
+        this.toastr.error("Please select profile picture", 'Error!' , {
+          timeOut: 3000,
+          closeButton: true,
+        });
+      }
     }
     else{
       this.toastr.error("You have to input every field valid", 'Error!' , {
@@ -148,6 +145,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   userData(): RegistrationUser {
+    let formData = new FormData();
+    formData.append("myfile",this.selectedFile);
+    console.log(this.selectedFile);
     return this.user = {
         username: this.username.value,
         email: this.email.value,
@@ -157,7 +157,7 @@ export class RegistrationComponent implements OnInit {
         address: this.address.value,
         role: this.userRole,
         password: this.password.value,
-        picture: ""
+        picture: this.selectedFile
     };
   }
 

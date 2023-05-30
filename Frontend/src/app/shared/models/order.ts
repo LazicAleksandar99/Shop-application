@@ -1,3 +1,4 @@
+import { CountdownConfig } from "ngx-countdown";
 import { ActiveItem, CreateItem, GetItem, HistoryItem } from "./item";
 
 export interface AllOrder {
@@ -30,7 +31,10 @@ export interface ActiveOrder {
     creationTime: Date,
     deliveryTime: Date,
     price: number,
-    status: string
+    status: string,
+    stopwatch: number,
+    config: CountdownConfig,
+    showCountdown: boolean;
 }
 
 export interface CreateOrder{
@@ -39,4 +43,9 @@ export interface CreateOrder{
     userId: number,
     sellerId: number,
     item: CreateItem,
+}
+
+export interface CancelOrder{
+    orderId: number,
+    userId: number
 }

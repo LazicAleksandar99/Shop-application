@@ -34,7 +34,7 @@ namespace Shopping.Api.Data.Repositories
             newOrder.CreationTime = DateTime.Now;
             newOrder.DeliveryTime = DateTime.Now.AddHours(1).AddMinutes(randomMinutes);
             newOrder.Status = "Delivering";
-            newOrder.Price = article.Price * newOrder.Item.Quantity;
+            newOrder.Price = (article.Price * newOrder.Item.Quantity) + 20;
             var result = await _data.Orders.AddAsync(newOrder);
             article.Quantity -= newOrder.Item.Quantity;
             await _data.SaveChangesAsync();
@@ -71,14 +71,22 @@ namespace Shopping.Api.Data.Repositories
 
         public async Task<bool> CancelOrder(int orderId, int userId)
         {
-            var order = await _data.Orders.Where(o => o.Id == orderId).SingleOrDefaultAsync();
+            var order = await _data.Orders
+                .Where(o => o.Id == orderId)
+                .Include(o => o.Item)
+                .SingleOrDefaultAsync();
             if (order == null || order.UserId != userId)
                 return false;
 
             TimeSpan elapsed = DateTime.Now - order.CreationTime;
             if(elapsed.TotalHours < 1)
                 return false;
-            
+
+            var article = await _data.Articles.Where(a => a.Id == order.Item.ArticleId).SingleOrDefaultAsync();
+            if (article == null)
+                return false;
+
+            article.Quantity += order.Item.Quantity;
             order.Status = "Cancelled"; 
             await _data.SaveChangesAsync();
             return true;
