@@ -136,56 +136,6 @@ export class ProfileComponent implements OnInit {
         newpassword: this.newpassword.value
     };
   }
-  /*
-SaveChanges() {
-    if(this.streetAddressValid()){
-      console.log("usao u if")
-      this.profileService.updateUserDetails(this.id, this.userData()).subscribe(
-        data=>{
-          this.toastr.success('Your profile has been successfully updated', 'Succes!', {
-            timeOut: 3000,
-            closeButton: true,
-          });
-          if(this.selectedFile){
-            let formData = new FormData();
-            formData.append("myfile",this.selectedFile);
-            this.profileService.updateUserPhoto(this.id,formData).subscribe(
-              data=>{
-                this.toastr.success('Your profile has been successfully updated', 'Succes!', {
-                  timeOut: 3000,
-                  closeButton: true,
-                });
-              }, error => {
-                this.toastr.error(error.error.errorMessage, 'Error!', {
-                  timeOut: 3000,
-                  closeButton: true,
-                });
-              }
-
-
-            );
-          }
-          this.route.navigateByUrl('/home/dashboard')
-        }, error=> {
-          this.toastr.error(error.error.errorMessage, 'Error!', {
-            timeOut: 3000,
-            closeButton: true,
-          });
-        }
-      )
-    }
-    else{
-      console.log("nije usao u if")
-      this.toastr.error("Please enter valid street addres ST.NAME ST.NUMBER,CITY,COUNTRY", 'Error!', {
-        timeOut: 3000,
-        closeButton: true,
-      });
-    }
-  }
-
-
-  */
-
   handleAddressChange(address: any) {
   }
   get username() {

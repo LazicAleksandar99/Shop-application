@@ -94,7 +94,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   OnSubmit(){
-    if (this.registerationForm.valid) {
+    if (this.registerationForm.valid) { 
       if(this.selectedFile){
         console.log(this.userData())
         this.authService.register(this.userData()).subscribe(
@@ -103,8 +103,6 @@ export class RegistrationComponent implements OnInit {
               timeOut: 3000,
               closeButton: true,
             });
-            // this.id = data;
-            if(this.selectedFile){
               let formData = new FormData();
               formData.append("myfile",this.selectedFile);
               this.userService.addPhoto(this.email.value,formData).subscribe(
@@ -120,7 +118,6 @@ export class RegistrationComponent implements OnInit {
                   });
                 }
               );
-            }
             this.router.navigate(['/authentication/login']);
           }, error =>{
             this.toastr.error("Invalid input", 'Error!' , {

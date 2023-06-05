@@ -15,4 +15,5 @@ export interface Article{
     description: string;
     picture: string;
     userId: number;
+    file: File;
 }

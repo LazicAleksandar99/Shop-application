@@ -15,14 +15,33 @@ export class ArticleService {
   constructor(private http: HttpClient,
               private authService: AuthService) { }
 
-  create(user: NewArticle){
+  create(article: NewArticle, picture: File){
     this.token = localStorage.getItem('token');
-    user.userId = this.authService.getUserId(this.token);
-    return this.http.post(this.baseUrl + '/v1/article/create', user, this.getHttpHeader());
+    article.userId = this.authService.getUserId(this.token);
+    const formData: FormData = new FormData();
+
+    formData.append('name' , article.name);
+    formData.append('price' , article.price.toString());
+    formData.append('quantity',article.quantity.toString());
+    formData.append('description',article.description);
+    formData.append('picture','empty');
+    formData.append('userId',article.userId.toString());
+    formData.append('file',picture);
+
+    return this.http.post(this.baseUrl + '/v1/article/create', formData, this.getHttpHeader());
   }
 
   update(article: Article){
-    return this.http.patch(this.baseUrl + '/v1/article/update', article, this.getHttpHeader());
+    const formData: FormData = new FormData();
+    formData.append('id' , article.id.toString());
+    formData.append('name' , article.name);
+    formData.append('price' , article.price.toString());
+    formData.append('quantity',article.quantity.toString());
+    formData.append('description',article.description);
+    formData.append('picture',article.picture);
+    formData.append('userId',article.userId.toString());
+    formData.append('file',article.file);
+    return this.http.patch(this.baseUrl + '/v1/article/update', formData, this.getHttpHeader());
   }
 
   getArticalDetails(id: number){

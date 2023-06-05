@@ -17,7 +17,7 @@ export class ActiveOrdersComponent implements OnInit {
   orders!: ActiveOrder[];
   token: any;
   userId: any;
-  customer: string[] = ['Customer'];
+  customerAndSeller: string[] = ['Customer', 'Seller'];
   cancelOrder: CancelOrder = {
     userId: -1,
     orderId: -1

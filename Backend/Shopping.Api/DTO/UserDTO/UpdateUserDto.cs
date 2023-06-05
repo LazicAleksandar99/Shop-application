@@ -13,8 +13,8 @@ namespace Shopping.Api.DTO.UserDTO
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        public string Newpassword { get; set; }
-        public string Oldpassword { get; set; }
+        public string? Newpassword { get; set; }
+        public string? Oldpassword { get; set; }
         [Required]
         [StringLength(100)]
         public string FirstName { get; set; }

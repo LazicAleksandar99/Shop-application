@@ -22,7 +22,7 @@ namespace Shopping.Api.Controllers
 
         [HttpPost("create")]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
-        public async Task<IActionResult> Create(CreateArticleDto newArticle)
+        public async Task<IActionResult> Create([FromForm] CreateArticleDto newArticle)
         {
             if (!await _articleService.Create(newArticle))
                 return BadRequest("User not valid");
@@ -31,7 +31,7 @@ namespace Shopping.Api.Controllers
 
         [HttpPatch("update")]
         [Authorize(Policy = "JwtSchemePolicy", Roles = "Seller")]
-        public async Task<IActionResult> Update(UpdateArticleDto updatedArticle)
+        public async Task<IActionResult> Update([FromForm] UpdateArticleDto updatedArticle)
         {
             if (!await _articleService.Update(updatedArticle))
                 return BadRequest("Updated article not valid");

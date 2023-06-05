@@ -32,19 +32,33 @@ export class AddArticleComponent implements OnInit {
 
   addArticle(): void {
     if (this.addArticleForm.valid){
-      this.articleService.create(this.addArticleForm.value).subscribe(
-        data=>{
-          this.toastr.success('You successfully added new product!', 'Succes!', {
-            timeOut: 3000,
-            closeButton: true,
-          });
-        }, error =>{
-          this.toastr.error(error.error.errorMessage, 'Error!', {
-            timeOut: 3000,
-            closeButton: true,
-          });
-        }
-      )
+      if(this.selectedFile){
+        this.articleService.create(this.addArticleForm.value, this.selectedFile).subscribe(
+          data=>{
+            this.toastr.success('You successfully added new product!', 'Succes!', {
+              timeOut: 3000,
+              closeButton: true,
+            });
+          }, error =>{
+            this.toastr.error("Bad article input", 'Error!', {
+              timeOut: 3000,
+              closeButton: true,
+            });
+          }
+        )
+      }
+      else{
+        this.toastr.error("PLEASE SELECT PICTURE", 'Error!', {
+          timeOut: 3000,
+          closeButton: true,
+        });
+      }
+    }
+    else{
+      this.toastr.error("Invalid article fields", 'Error!', {
+        timeOut: 3000,
+        closeButton: true,
+      });
     }
   }
 

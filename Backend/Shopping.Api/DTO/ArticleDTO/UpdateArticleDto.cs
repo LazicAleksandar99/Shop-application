@@ -24,5 +24,6 @@ namespace Shopping.Api.DTO.ArticleDTO
         public string Picture { get; set; }
         [Required]
         public int UserId { get; set; } 
+        public IFormFile? File { get; set; }
     }
 }

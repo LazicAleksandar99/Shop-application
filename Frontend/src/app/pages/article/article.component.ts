@@ -39,8 +39,8 @@ export class ArticleComponent implements OnInit {
   createUpdateForm() {
     this.updateForm = this.fb.group({
       name: [null,Validators.required],
-      price: [1,[Validators.required,Validators.min(0), Validators.max(10000)]],
-      quantity: [1,[Validators.required,Validators.min(0), Validators.max(10000)]],
+      price: [1,[Validators.required,Validators.min(1), Validators.max(10000)]],
+      quantity: [1,[Validators.required,Validators.min(1), Validators.max(10000)]],
       description: [null,[Validators.required,Validators.minLength(3)]],
     });
   }
@@ -75,30 +75,14 @@ export class ArticleComponent implements OnInit {
 
   SaveChanges(){
     if (this.updateForm.valid) {
-      //if(this.streetAddressValid()){
+      // if(this.selectedFile){
         this.articleService.update(this.userData()).subscribe(
           data=>{
             this.toastr.success('Your article has been successfully updated', 'Succes!', {
               timeOut: 3000,
               closeButton: true,
             });
-            if(this.selectedFile){
-              let formData = new FormData();
-              formData.append("myfile",this.selectedFile);
-              // this.profileService.updateUserPhoto(this.id,formData).subscribe(
-              //   data=>{
-              //     this.toastr.success('Your profile has been successfully updated', 'Succes!', {
-              //       timeOut: 3000,
-              //       closeButton: true,
-              //     });
-              //   }, error => {
-              //     this.toastr.error(error.error.errorMessage, 'Error!', {
-              //       timeOut: 3000,
-              //       closeButton: true,
-              //     });
-              //   }
-              // );
-            }
+            
           }, error =>{
             this.toastr.error("Invalid input", 'Error!' , {
               timeOut: 3000,
@@ -109,12 +93,11 @@ export class ArticleComponent implements OnInit {
         );
       // }
       // else{
-      //   this.toastr.error("Please enter valid street address: ST.NAME ST.NUMBER,CITY,COUNTRY", 'Error!' , {
+      //   this.toastr.error("Chose photo", 'Error!' , {
       //     timeOut: 3000,
       //     closeButton: true,
       //   });
       // }
-
     }
     else{
       this.toastr.error("You have to input every field valid", 'Error!' , {
@@ -133,8 +116,9 @@ export class ArticleComponent implements OnInit {
         description: this.description.value,
         price: this.price.value,
         quantity: this.quantity.value,
-        picture: "neka putanja",
+        picture: this.article.picture,
         userId: this.authService.getUserId(this.token),
+        file: this.selectedFile
     };
   }
 

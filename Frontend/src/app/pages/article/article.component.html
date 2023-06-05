@@ -4,7 +4,7 @@
     <div  *ngIf="article" class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-              <img  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="avatar"
+              <img  [src]="article.picture" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
             </div>
         </div>
@@ -18,15 +18,20 @@
                       <div class="col-md-6">
                         <label class="labels">Name</label>
                         <input type="text" class="form-control" formControlName="name" placeholder="name" >
-                        <span *ngIf="!name.valid && (name.touched)"class="alert alert-danger">
-                            Please provide name
-                        </span>
+                        <div *ngIf="!name.valid && (name.touched)">
+                          <br/>
+                          <span class="alert alert-danger">
+                              Please provide name
+                          </span>
+                          <br/>
+                          <br/>
+                        </div>
                       </div>
                   </div>
                   <div class="row mt-2">
                     <div class="col-md-6">
                       <label class="labels">Price</label>
-                      <input class="form-control"  formControlName="price" id="numberId" type="number" min="0" max="10000"  style="text-align:center ;">
+                      <input class="form-control"  formControlName="price" id="numberId" type="number" min="1" max="10000"  style="text-align:center ;">
                     </div>
                   </div>
                   <div class="row mt-2">
@@ -39,9 +44,14 @@
                     <div class="col-md-12">
                       <label class="labels">Description</label>
                       <input type="text" class="form-control" formControlName="description" placeholder="description" >
-                      <span *ngIf="!description.valid && (description.touched)"class="alert alert-danger">
-                          Please provide description
-                      </span>
+                      <div *ngIf="!description.valid && (description.touched)">
+                        <br/>
+                        <span class="alert alert-danger">
+                            Please provide description
+                        </span>
+                        <br/>
+                        <br/>
+                      </div>
                     </div>
                   </div>
                 </form>

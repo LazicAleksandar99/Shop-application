@@ -10,7 +10,7 @@
       <th scope="col">Article Price</th>
       <th scope="col">Quantity</th>
       <th scope="col">Time left</th>
-      <th scope="col" *appHasRole="customer">Cancel</th>
+      <th scope="col" *appHasRole="customerAndSeller">Cancel</th>
     </tr>
   </thead>
   <tbody>
@@ -23,10 +23,10 @@
       <th>{{order.item.articleName}}</th>
       <td>{{ order.item.quantity !== 0 ? (order.price - 20) / order.item.quantity : 'N/A' }}</td>
       <td>{{order.item.quantity}}</td>
-      <td>
+      <td *appHasRole="customerAndSeller">
         <countdown [config]="order.config" *ngIf="order.showCountdown"></countdown>
       </td>
-      <td *appHasRole="customer"><ng-container>
+      <td *appHasRole="customerAndSeller"><ng-container>
         <button class="btn btn-danger" (click)="Cancel(order.id)">Cancel</button>
         </ng-container>
         <ng-container >

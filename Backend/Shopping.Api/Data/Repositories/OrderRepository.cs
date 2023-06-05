@@ -53,11 +53,11 @@ namespace Shopping.Api.Data.Repositories
         public async Task<List<Order>> GetActiveOrders(int id)
         {
             var sellerOrders = await _data.Orders
-                .Where(o => o.UserId == id && o.Status == "Delivering")
+                .Where(o => o.SellerId == id && o.Status == "Delivering")
                 .Include(o => o.Item)
                     .ThenInclude(i => i.Article)
                 .ToListAsync();
-            var userOrders = await _data.Orders.Where(o => o.SellerId == id && o.Status == "Delivering")
+            var userOrders = await _data.Orders.Where(o => o.UserId == id && o.Status == "Delivering")
                 .Include(o => o.Item)
                     .ThenInclude(i => i.Article)
                 .ToListAsync();

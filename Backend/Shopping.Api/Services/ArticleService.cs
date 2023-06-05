@@ -15,19 +15,27 @@ namespace Shopping.Api.Services
         private readonly IArticleRepository _articleRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
 
-        public ArticleService(IArticleRepository articleRepository, IUserRepository userRepository,IMapper mapper) 
+        public ArticleService(IArticleRepository articleRepository, IUserRepository userRepository,IMapper mapper, IPhotoService photoService) 
         {
             _articleRepository = articleRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
         public async Task<bool> Create(CreateArticleDto newArticle)
         {
             if (!await _userRepository.DoesSellerExist(newArticle.UserId))
                 return false;
+
+            var result = await _photoService.UploadPhotoAsync(newArticle.File);
+            if (result.Error != null)
+                return false;
+
             var article = _mapper.Map<Article>(newArticle);
+            article.Picture = result.SecureUri.AbsoluteUri;
             return await _articleRepository.Create(article);
         }
 
@@ -36,6 +44,14 @@ namespace Shopping.Api.Services
             if (!await _userRepository.DoesSellerExist(oldArticle.UserId))
                 return false;
             var article = _mapper.Map<Article>(oldArticle);
+            if (oldArticle.File != null)
+            {
+                var result = await _photoService.UploadPhotoAsync(oldArticle.File);
+                if (result.Error != null)
+                    return false;
+                article.Picture = result.SecureUrl.AbsoluteUri;
+            }
+
             return await _articleRepository.Update(article);
         }
 

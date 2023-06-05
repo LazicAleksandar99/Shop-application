@@ -2,10 +2,9 @@
   <div  *ngIf="article" class="card p-3">
       <div class="d-flex justify-content-between align-items-center ">
           <div class="mt-2">
-              <h4 class="text-uppercase">Bip Bip</h4>
-              <div class="image" style="margin-left: 0.4cm;margin-top: 1cm;">
-                <img class="rounded-circle img-fluid" src="../../../../assets/images/prodcuts.png" style="width:150px;height:110px">
-              </div>
+            <div class='card_image'>
+              <img [src]="article.picture" [alt]="'InvalidUrl'" />
+            </div>
               <div class="mt-5">
                   <h3 class="main-heading mt-0">{{article.name}}</h3>
                   <h4 class="text-uppercase">{{article.price}}$</h4>
@@ -19,13 +18,23 @@
           <input class="form-control"  formControlName="quantity" id="numberId" type="number" min="1" max="10000"  style="text-align:center ;">
         </div>
         <input type="text" class="form-control" formControlName="address" placeholder="address" >
-        <span *ngIf="!address.valid && (address.touched)"class="alert alert-danger">
-            Please provide address
-        </span>
+        <div *ngIf="!address.valid && (address.touched)">
+          <br/>
+          <span class="alert alert-danger">
+              Please provide address
+          </span>
+          <br/>
+          <br/>
+        </div>
         <input type="text" class="form-control" formControlName="comment" placeholder="comment" >
-        <span *ngIf="!comment.valid && (comment.touched)"class="alert alert-danger">
-            Please provide comment
-        </span>                
+        <div *ngIf="!comment.valid && (comment.touched)">
+          <br/>
+          <span class="alert alert-danger">
+              Please provide comment
+          </span>
+          <br/>
+          <br/>                
+        </div>
       </form>
       <button class="btn btn-success" (click)="Order(article)" >Order</button>
   </div>
